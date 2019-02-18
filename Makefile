@@ -1,0 +1,84 @@
+# --- User Parameters
+
+# Django directory
+DJANGO_PROJECT_NAME=screenconnex
+DJANGO_APPS=api accounts
+
+# Testing parameters
+NPROCS=auto
+
+# --- Internal Parameters
+
+# Testing parameters
+PYTEST_SEARCH_PATHS=${DJANGO_PROJECT_NAME} apps
+PYTEST_OPTIONS=-n ${NPROCS} --cov=${DJANGO_PROJECT_NAME} --cov=apps
+PYTEST_PYLINT_OPTIONS=
+
+# Documentation
+DOC_DIR=docs
+ER_DIAGRAM_DIR=${DOC_DIR}/er-diagrams
+
+# --- Targets
+
+# Default target
+all: fast-test
+
+# Testing
+fast-test fast-check:
+	make test PYTEST_OPTIONS="-x ${PYTEST_OPTIONS}"
+
+full-test full-check:
+	make test PYTEST_PYLINT_OPTIONS="--pylint --pylint-error-types=EF";
+
+test check:
+	pycodestyle setup.py
+	py.test ${PYTEST_SEARCH_PATHS} ${PYTEST_OPTIONS} ${PYTEST_PYLINT_OPTIONS}
+
+.coverage:
+	-make test
+
+coverage-report: .coverage
+	coverage report -m
+
+coverage-html: .coverage
+	coverage html -d coverage
+
+# Code quality
+radon-mi:
+	radon mi ${CODE_DIRS} -s --sort
+radon-mi-fail:
+	radon mi ${CODE_DIRS} -nB -s --sort
+radon-cc:
+	radon cc ${CODE_DIRS} --total-average
+radon-cc-fail:
+	radon cc ${CODE_DIRS} -nC --average
+radon-raw:
+	radon raw ${CODE_DIRS} -s
+
+# Documentation generation
+erd:
+	if [ -d ${ER_DIAGRAM_DIR} ]; then rm -rf ${ER_DIAGRAM_DIR}; fi
+	mkdir -p ${ER_DIAGRAM_DIR}
+	python manage.py graph_models ${DJANGO_APPS} \
+		--disable-sort-fields --no-inheritance \
+		-g -o ${ER_DIAGRAM_DIR}/${DJANGO_PROJECT_NAME}-full.png;
+	for APP in ${DJANGO_APPS}; do \
+		python manage.py graph_models $$APP -S \
+			--disable-sort-fields --no-inheritance \
+			-g -o ${ER_DIAGRAM_DIR}/$$APP.png; \
+	done
+
+# Maintenance
+clean:
+	find . -name "__pycache__" -delete  # remove compiled python directories
+	find . -name "*.pyc" -exec rm -f {} \;  # compiled python
+	rm -rf dev-ops/conf # generated dev-ops files
+	rm -rf .cache  # pytest
+	rm -rf .coverage .coverage.* coverage  # coverage
+	rm -rf dist *.egg-info  # distribution
+
+# Phony Targets
+.PHONY: all clean erd dist \
+        test fast-test full-test \
+        check fast-check full-check \
+        coverage-report coverage-html

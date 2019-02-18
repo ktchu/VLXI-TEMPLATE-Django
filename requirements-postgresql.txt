@@ -1,0 +1,6 @@
+# Install package (as editable) and packages required for basic usage with
+# PostgreSQL backend.
+#
+# See INSTALL_REQUIREMENTS and POSTGRESQL_REQUIREMENTS in setup.py for the
+# list of dependencies.
+-e .[postgresql]
