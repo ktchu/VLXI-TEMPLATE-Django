@@ -9,8 +9,6 @@ copied, modified, propagated, or distributed except according to the terms
 contained in the LICENSE file.
 ------------------------------------------------------------------------------
 """
-# pylint: disable=invalid-name
-
 # --- Imports
 
 # pytest
@@ -35,7 +33,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
     # --- setUp/tearDown
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # pylint: disable=invalid-name
         """
         Create initial data used by all tests.
         """
