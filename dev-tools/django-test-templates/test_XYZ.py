@@ -38,7 +38,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         Create initial data used by all tests.
         """
 
-    # --- Tests
+    # --- Data model and database tests
 
     @staticmethod
     def test_BREAD_required_fields_only():  # pylint: disable=invalid-name
@@ -255,6 +255,8 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # Verify forward relationship
 
         # Verify reverse relationship
+
+    # --- Property and method tests
 
     @staticmethod
     def test_properties():
