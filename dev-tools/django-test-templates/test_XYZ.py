@@ -184,9 +184,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         # Create object
 
-        # Verify forward relationships
-
-        # Verify reverse relationships
+        # Verify forward and reverse relationships
 
     @staticmethod
     def test_many_to_many_relationships():
@@ -200,9 +198,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         # Create object
 
-        # Verify forward relationships
-
-        # Verify reverse relationships
+        # Verify forward and reverse relationships
 
     @staticmethod
     def test_one_to_one_relationships():
@@ -216,9 +212,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         # Create object
 
-        # Verify forward relationships
-
-        # Verify reverse relationships
+        # Verify forward and reverse relationships
 
     # --- Property and method tests
 
