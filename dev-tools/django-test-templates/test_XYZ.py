@@ -108,36 +108,6 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Retrieve and verify object from database
 
-        # ----- Browse
-
-        # Add additional objects for browse test
-
-        # Verify database contents (e.g., record counts)
-
-        # ------ Edit
-
-        # Edit field values and save object
-
-        # Verify that object with original field values is
-        # no longer present in database
-
-        with pytest.raises(ObjectDoesNotExist) as exception_info:
-            XYZ.objects.get()
-        assert 'XYZ matching query does not exist' in str(exception_info)
-
-        # Retrieve and verify object from database
-
-        # ------ Delete
-
-        # Delete object
-        pk = obj_from_db.id  # pylint: disable=invalid-name
-        obj_from_db.delete()
-
-        # Verify that object is no longer present in database
-        with pytest.raises(ObjectDoesNotExist) as exception_info:
-            XYZ.objects.get(pk=pk)
-        assert 'XYZ matching query does not exist' in str(exception_info)
-
     @staticmethod
     def test_not_null_constraints():
         """
