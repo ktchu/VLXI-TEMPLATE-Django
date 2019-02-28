@@ -41,7 +41,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
     # --- Data model and database tests
 
     @staticmethod
-    def test_BREAD_required_fields_only():  # pylint: disable=invalid-name
+    def test_BREAD():  # pylint: disable=invalid-name
         """
         Test basic BREAD operations. Required fields only.
         """
@@ -90,9 +90,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'XYZ matching query does not exist' in str(exception_info)
 
     @staticmethod
-    def test_BREAD_with_optional_fields():  # pylint: disable=invalid-name
+    def test_add_with_optional_fields():
         """
-        Test basic BREAD operations. Optional fields included.
+        Test basic add operation with optional fields included.
         """
         # pylint: disable=no-member
 
