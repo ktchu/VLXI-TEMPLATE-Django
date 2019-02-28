@@ -182,13 +182,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         * Many-to-one relationships should be tested from the data model that
           containing the ForeignKey field.
         """
-        # --- 'field_1'
-
         # Create object
 
-        # Verify forward relationship
+        # Verify forward relationships
 
-        # Verify reverse relationship
+        # Verify reverse relationships
 
     @staticmethod
     def test_many_to_many_relationships():
@@ -200,13 +198,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         * Many-to-many relationships should be tested from the data model that
           containing the ManyToManyField.
         """
-        # --- 'field_1'
-
         # Create object
 
-        # Verify forward relationship
+        # Verify forward relationships
 
-        # Verify reverse relationship
+        # Verify reverse relationships
 
     @staticmethod
     def test_one_to_one_relationships():
@@ -218,13 +214,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         * One-to-one relationships should be tested from the data model that
           containing the OneToOneField.
         """
-        # --- 'field_1'
-
         # Create object
 
-        # Verify forward relationship
+        # Verify forward relationships
 
-        # Verify reverse relationship
+        # Verify reverse relationships
 
     # --- Property and method tests
 
