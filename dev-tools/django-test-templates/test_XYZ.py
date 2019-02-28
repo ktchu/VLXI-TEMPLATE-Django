@@ -263,3 +263,5 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         Test properties.
         """
+
+    # --- Other tests (e.g., signals, custom permissions, etc.)
