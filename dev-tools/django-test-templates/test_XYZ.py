@@ -77,11 +77,12 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'XYZ matching query does not exist' in str(exception_info)
 
         # Retrieve and verify object from database
+        obj_from_db = XYZ.objects.get(pk=obj_from_db.pk)
 
         # ------ Delete
 
         # Delete object
-        pk = obj_from_db.id  # pylint: disable=invalid-name
+        pk = obj_from_db.pk  # pylint: disable=invalid-name
         obj_from_db.delete()
 
         # Verify that object is no longer present in database
@@ -186,6 +187,8 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Verify forward and reverse relationships
 
+        # Verify 'on_delete' behavior
+
     @staticmethod
     def test_many_to_many_relationships():
         """
@@ -200,6 +203,8 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Verify forward and reverse relationships
 
+        # Verify 'on_delete' behavior
+
     @staticmethod
     def test_one_to_one_relationships():
         """
@@ -213,6 +218,8 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # Create object
 
         # Verify forward and reverse relationships
+
+        # Verify 'on_delete' behavior
 
     # --- Property and method tests
 
