@@ -54,10 +54,12 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Add
 
         # Create and verify object
+        obj = XYZ.objects.create()
 
         # ----- Read
 
         # Retrieve and verify object from database
+        obj_from_db = XYZ.objects.get(pk=obj.pk)
 
         # ----- Browse
 
@@ -104,10 +106,12 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Add
 
         # Create and verify object
+        obj = XYZ.objects.create()
 
         # ----- Read
 
         # Retrieve and verify object from database
+        obj_from_db = XYZ.objects.get(pk=obj.pk)
 
     @staticmethod
     def test_not_null_constraints():
