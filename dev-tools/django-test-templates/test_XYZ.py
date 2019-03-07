@@ -82,7 +82,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Delete
 
         # Delete object
-        pk = obj_from_db.pk  # pylint: disable=invalid-name
+        pk = obj_from_db.pk
         obj_from_db.delete()
 
         # Verify that object is no longer present in database
