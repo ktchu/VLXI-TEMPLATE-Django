@@ -180,7 +180,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         # --- 'field_1'
 
-        # Create object
+        # Create object with invalid field value
 
         # Validate object
         with pytest.raises(ValidationError) as exception_info:
