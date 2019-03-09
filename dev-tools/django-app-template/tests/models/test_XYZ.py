@@ -30,24 +30,42 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
     """
     Unit tests for 'XYZ' data model
     """
-    # --- setUp/tearDown
+    # --- Test preparation and clean up
 
     @classmethod
     def setUpTestData(cls):  # pylint: disable=invalid-name
         """
-        Create initial data used by all tests.
+        Initialize database before running any tests to populate it with
+        data records required by tests.
+
+        Notes
+        -----
+        * setUpTestData() is only called once for the entire TestCase,
+          so these database records should not be modified within tests.
+        """
+
+    def setUp(self):  # pylint: disable=invalid-name
+        """
+        Perform preparations required by most tests.
+
+        - Set default record data used to create data objects.
+        """
+        # --- Default field values to use for creating objects.
+
+        self.default_record = {}
+
+    def tearDown(self):  # pylint: disable=invalid-name
+        """
+        Clean up after each test.
         """
 
     # --- Data model and database tests
 
-    @staticmethod
-    def test_BREAD():  # pylint: disable=invalid-name
+    def test_BREAD(self):  # pylint: disable=invalid-name
         """
         Test basic BREAD operations. Required fields only.
         """
         # pylint: disable=no-member
-
-        # --- Preparations
 
         # --- Exercise functionality and check results
 
@@ -84,7 +102,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Delete
 
         # Delete object
-        pk = obj_from_db.pk
+        pk = obj_from_db.pk   # pylint: disable=invalid-name
         obj_from_db.delete()
 
         # Verify that object is no longer present in database
@@ -92,14 +110,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
             XYZ.objects.get(pk=pk)
         assert 'XYZ matching query does not exist' in str(exception_info)
 
-    @staticmethod
-    def test_add_with_optional_fields():
+    def test_add_with_optional_fields(self):
         """
         Test basic add operation with optional fields included.
         """
         # pylint: disable=no-member
-
-        # --- Preparations
 
         # --- Exercise functionality and check results
 
@@ -113,8 +128,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # Retrieve and verify object from database
         obj_from_db = XYZ.objects.get(pk=obj.pk)
 
-    @staticmethod
-    def test_not_null_constraints():
+    def test_not_null_constraints(self):
         """
         Test NOT NULL constraints.
 
@@ -135,16 +149,13 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'NOT NULL constraint failed: ' \
                'xyz.abc_id' in str(exception_info)
 
-    @staticmethod
-    def test_unique_constraints():
+    def test_unique_constraints(self):
         """
         Test unique constraints.
         """
-        # --- Preparations
+        # --- Exercise functionality and check results
 
         # Create object
-
-        # --- Exercise functionality and check results
 
         # Attempt to create duplicate object
         with pytest.raises(IntegrityError) as exception_info:
@@ -155,20 +166,25 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'xyz.field_1' in str(exception_info)
         assert 'xyz.field_2' in str(exception_info)
 
-    @staticmethod
-    def test_integrity_constraints():
+    def test_integrity_constraints(self):
         """
         Test other integrity constraints.
         """
+        # TODO: do we need this method?
 
-    @staticmethod
-    def test_validated_fields():
+    def test_validated_fields(self):
         """
         Test validated fields.
+
+        Notes
+        -----
+        * To test field validation, do _not_ use `Model.objects.create()` to
+          create the object because some fields get modified during the
+          process and the validation error may not be caught. Create an object
+          directly and use ```full_clean()``` method to check for invalid
+          fields.
         """
         # --- 'field_1'
-
-        # Preparations
 
         # Create object
 
@@ -177,8 +193,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
             obj.full_clean()
         assert "'field_1': ['Error message.'" in str(exception_info)
 
-    @staticmethod
-    def test_many_to_one_relationships():
+    def test_many_to_one_relationships(self):
         """
         Test many-to-one relationships.
 
@@ -193,8 +208,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Verify 'on_delete' behavior
 
-    @staticmethod
-    def test_many_to_many_relationships():
+    def test_many_to_many_relationships(self):
         """
         Test many-to-many relationships.
 
@@ -209,8 +223,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Verify 'on_delete' behavior
 
-    @staticmethod
-    def test_one_to_one_relationships():
+    def test_one_to_one_relationships(self):
         """
         Test one-to-one relationships.
 
@@ -227,8 +240,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
     # --- Property and method tests
 
-    @staticmethod
-    def test_properties():
+    def test_properties(self):
         """
         Test properties.
         """
