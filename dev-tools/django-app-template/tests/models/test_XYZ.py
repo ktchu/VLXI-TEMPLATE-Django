@@ -166,12 +166,6 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'xyz.field_1' in str(exception_info)
         assert 'xyz.field_2' in str(exception_info)
 
-    def test_integrity_constraints(self):
-        """
-        Test other integrity constraints.
-        """
-        # TODO: do we need this method?
-
     def test_validated_fields(self):
         """
         Test validated fields.
