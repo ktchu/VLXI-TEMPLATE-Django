@@ -15,13 +15,18 @@ contained in the LICENSE file.
 from collections.abc import Sequence
 
 # Django
+from django.db.models.fields.related import ManyToManyField
+from django.db.models.fields.reverse_related import OneToOneRel
 from django.db.models.fields.reverse_related import ManyToOneRel
-
+from django.db.models.fields.reverse_related import ManyToManyRel
 
 # --- Constants
 
 _BASE_UNVERIFIED_FIELDS = ('id', 'created_at', 'modified_at')
 _REVERSE_RELATION_FIELD_TYPES = (
+    OneToOneRel,
+    ManyToManyField,
+    ManyToManyRel,
     ManyToOneRel,
 )
 
