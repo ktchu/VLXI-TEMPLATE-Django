@@ -14,10 +14,16 @@ contained in the LICENSE file.
 # Standard library
 from collections.abc import Sequence
 
+# Django
+from django.db.models.fields.reverse_related import ManyToOneRel
+
 
 # --- Constants
 
-_BASE_UNVERIFIED_FIELDS = ['id', 'created_at', 'modified_at']
+_BASE_UNVERIFIED_FIELDS = ('id', 'created_at', 'modified_at')
+_REVERSE_RELATION_FIELD_TYPES = (
+    ManyToOneRel,
+)
 
 
 # --- Test Suites
@@ -42,7 +48,8 @@ def verify_obj(obj, expected, skip=None):
     * Hidden fields are skipped.
     * Skipped non-hidden fields: defined in _BASE_UNVERIFIED_FIELDS
     """
-    # Check arguments
+    # --- Check arguments
+
     if skip is None:
         skip = []
 
@@ -50,18 +57,44 @@ def verify_obj(obj, expected, skip=None):
         if not isinstance(skip, Sequence):
             raise ValueError("'skip' should be a Sequence")
 
-        if isinstance(skip, str):
+        elif isinstance(skip, str):
             skip = [skip]
 
-    # Construct list of fields to skip
-    skip.extend(_BASE_UNVERIFIED_FIELDS)
+    # --- Preparations
 
-    # Get (non-hidden) fields
     fields = obj._meta.get_fields()  # pylint: disable=protected-access
 
-    # Verify field values
+    # --- Construct list of fields to skip
+
+    skip.extend(_BASE_UNVERIFIED_FIELDS)
+
+    # Skip reverse relation fields
+    for field in fields:
+        if isinstance(field, _REVERSE_RELATION_FIELD_TYPES):
+            skip.append(field.name)
+
+    # --- Verify field values
+
     for field in fields:
         if field.name in skip:
             continue
 
-        assert getattr(obj, field.name) == expected[field.name]
+        value = getattr(obj, field.name)
+        expected_value = expected[field.name]
+
+        try:
+            assert value == expected_value
+        except AssertionError:
+            message = "obj.{}: assert ".format(field.name)
+
+            if isinstance(value, str):
+                message += "'{}' == ".format(value)
+            else:
+                message += "{} == ".format(value)
+
+            if isinstance(expected_value, str):
+                message += "'{}'".format(expected_value)
+            else:
+                message += "{}".format(expected_value)
+
+            raise AssertionError(message)
