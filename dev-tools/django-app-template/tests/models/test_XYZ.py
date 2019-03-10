@@ -11,6 +11,9 @@ contained in the LICENSE file.
 """
 # --- Imports
 
+# Standard library
+import copy
+
 # pytest
 import pytest
 
@@ -22,6 +25,7 @@ from django.db import transaction
 from django.test import TestCase
 
 # Local packages
+from ..utils import verify_obj
 
 
 # --- Test Suites
@@ -73,6 +77,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Create and verify object
         obj = XYZ.objects.create()
+
+        expected_record = copy.deepcopy(self.test_record)
+        verify_obj(obj, expected_record)
 
         # ----- Read
 
