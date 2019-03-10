@@ -48,11 +48,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         """
         Perform preparations required by most tests.
 
-        - Set default record data used to create data objects.
+        - Construct test record to use when creating data objects.
         """
-        # --- Default field values to use for creating objects.
+        # --- Test record to use when creating data objects
 
-        self.default_record = {}
+        self.test_record = {}
 
     def tearDown(self):  # pylint: disable=invalid-name
         """
