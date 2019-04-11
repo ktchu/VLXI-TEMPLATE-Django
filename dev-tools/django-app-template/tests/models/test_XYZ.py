@@ -135,9 +135,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # Retrieve and verify object from database
         obj_from_db = XYZ.objects.get(pk=obj.pk)
 
-    def test_not_null_constraints(self):
+    def test_add_not_null_constraints(self):
         """
-        Test NOT NULL constraints.
+        Test NOT NULL constraint violations when adding objects.
 
         Notes
         -----
@@ -156,9 +156,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         assert 'NOT NULL constraint failed: ' \
                'xyz.abc_id' in str(exception_info)
 
-    def test_unique_constraints(self):
+    def test_add_unique_constraints(self):
         """
-        Test unique constraints.
+        Test unique constraints when adding objects.
         """
         # --- Exercise functionality and check results
 
