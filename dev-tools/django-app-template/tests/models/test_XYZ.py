@@ -67,7 +67,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
     def test_BREAD(self):  # pylint: disable=invalid-name
         """
-        Test basic BREAD operations. Required fields only.
+        Test basic BREAD operations.
+
+        - The 'add' operation is tested with required fields only.
         """
         # pylint: disable=no-member
 
@@ -117,9 +119,9 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
             XYZ.objects.get(pk=pk)
         assert 'XYZ matching query does not exist' in str(exception_info)
 
-    def test_add_with_optional_fields(self):
+    def test_add_optional_fields(self):
         """
-        Test basic add operation with optional fields included.
+        Test 'add' operation with optional fields included.
         """
         # pylint: disable=no-member
 
@@ -137,7 +139,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
     def test_add_not_null_constraints(self):
         """
-        Test NOT NULL constraint violations when adding objects.
+        Test NOT NULL constraints when adding objects.
 
         Notes
         -----
@@ -158,7 +160,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
     def test_add_unique_constraints(self):
         """
-        Test unique constraints when adding objects.
+        Test uniqueness constraints when adding objects.
         """
         # --- Exercise functionality and check results
 
