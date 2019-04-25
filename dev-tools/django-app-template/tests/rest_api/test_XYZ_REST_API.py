@@ -192,7 +192,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
         response = self.client.put(url, data)
         assert response.status_code == status.HTTP_200_OK
 
-        # ------ 'PUT' is idempotent
+        # ------ Verify that 'PUT' is idempotent
 
         # ------ 'PUT' request with invalid data
 
