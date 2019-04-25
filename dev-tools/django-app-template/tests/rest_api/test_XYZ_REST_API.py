@@ -91,6 +91,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # --- Exercise functionality and check results
 
         response = self.client.get(url)
+        assert response.status_code == status.HTTP_200_OK
 
     def test_list_with_filters(self):
         """
@@ -104,6 +105,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # --- Exercise functionality and check results
 
         response = self.client.get(url, data)
+        assert response.status_code == status.HTTP_200_OK
 
     def test_create(self):
         """
@@ -118,6 +120,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         data = {}
         response = self.client.post(url, data)
+        assert response.status_code == status.HTTP_201_CREATED
 
     def test_create_with_data_field_violations(self):
         """
@@ -133,6 +136,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         data = {}
         response = self.client.post(url, data)
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_create_with_uniqueness_violations(self):
         """
@@ -148,6 +152,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         data = {}
         response = self.client.post(url, data)
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_retrieve(self):
         """
@@ -164,6 +169,8 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # --- Exercise functionality and check results
 
         response = self.client.get(url)
+        assert response.status_code == status.HTTP_200_OK
+        run_basic_item_response_checks(response)
 
     def test_update(self):
         """
@@ -179,8 +186,19 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
+        # ------ 'PUT' with valid data
+
         data = {}
         response = self.client.put(url, data)
+        assert response.status_code == status.HTTP_200_OK
+
+        # ------ 'PUT' is idempotent
+
+        # ------ 'PUT' with invalid data
+
+        # Check that request fails
+
+        # Verify that database record has not be updated
 
     def test_partial_update(self):
         """
@@ -196,8 +214,17 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
+        # ------ 'PATCH' with valid data
+
         data = {}
         response = self.client.patch(url, data)
+        assert response.status_code == status.HTTP_200_OK
+
+        # ------ 'PATCH' with invalid data
+
+        # Check that request fails
+
+        # Verify that database record has not be updated
 
     def test_destroy(self):
         """
@@ -210,5 +237,11 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
+        # Delete record
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
         response = self.client.delete(url)
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        # Check that 'GET' request returns 404 error
+        response = self.client.get(url)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
