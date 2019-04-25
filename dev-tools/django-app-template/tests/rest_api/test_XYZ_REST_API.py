@@ -186,7 +186,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
-        # ------ 'PUT' with valid data
+        # ------ 'PUT' request with valid data
 
         data = {}
         response = self.client.put(url, data)
@@ -194,7 +194,7 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # ------ 'PUT' is idempotent
 
-        # ------ 'PUT' with invalid data
+        # ------ 'PUT' request with invalid data
 
         # Check that request fails
 
@@ -214,13 +214,13 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
-        # ------ 'PATCH' with valid data
+        # ------ 'PATCH' request with valid data
 
         data = {}
         response = self.client.patch(url, data)
         assert response.status_code == status.HTTP_200_OK
 
-        # ------ 'PATCH' with invalid data
+        # ------ 'PATCH' request with invalid data
 
         # Check that request fails
 
