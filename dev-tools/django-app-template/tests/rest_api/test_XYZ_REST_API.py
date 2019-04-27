@@ -56,10 +56,6 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         - Authenticate APIClient.
         """
-        # --- Test record to use when creating data objects
-
-        self.test_record = {}
-
         # --- Authenticate APIClient (with admin user)
 
         email = 'admin-1@example.com'
