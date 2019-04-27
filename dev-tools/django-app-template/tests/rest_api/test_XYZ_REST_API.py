@@ -130,9 +130,37 @@ class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         # --- Exercise functionality and check results
 
+        # ------ Missing required fields
+
+        # List of required fields
+        required_fields = []
+
+        # Test data
         data = {}
-        response = self.client.post(url, data)
+
+        # Verify that error is raised for each required field
+        invalid_data = copy.deepcopy(data)
+        for required_field in required_fields:
+            del invalid_data[required_field]
+
+        # Attempt to create record
+        response = self.client.post(url, invalid_data)
+
+        # Check response
         assert response.status_code == status.HTTP_400_BAD_REQUEST
+        for required_field in required_fields:
+            assert required_field in response.data
+
+            error_codes = [error.code for error
+                           in response.data[required_field]]
+            expected_error_codes = ['required']
+            for error_code in expected_error_codes:
+                assert error_code in error_codes
+
+            errors = [str(error) for error in response.data[required_field]]
+            expected_errors = ['This field is required.']
+            for error in expected_errors:
+                assert error in errors
 
     def test_create_with_uniqueness_violations(self):
         """
