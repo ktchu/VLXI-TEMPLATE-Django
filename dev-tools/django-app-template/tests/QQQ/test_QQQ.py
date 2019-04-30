@@ -30,14 +30,14 @@ from ..utils import verify_obj
 
 # --- Test Suite
 
-class test_QQQ(TestCase):  # pylint: disable=invalid-name
+class test_QQQ(TestCase):
     """
     Unit tests for QQQ data model
     """
     # --- Preparation and clean up
 
     @classmethod
-    def setUpTestData(cls):  # pylint: disable=invalid-name
+    def setUpTestData(cls):
         """
         Generate test data (e.g., database records). Perform preparations
         required by most tests (to redundant operations).
@@ -55,12 +55,12 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
 
         cls.test_record = {}
 
-    def setUp(self):  # pylint: disable=invalid-name
+    def setUp(self):
         """
         Perform preparations required by most tests.
         """
 
-    def tearDown(self):  # pylint: disable=invalid-name
+    def tearDown(self):
         """
         Clean up after each test.
         """
@@ -113,7 +113,7 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
         # ------ Delete
 
         # Delete object
-        pk = obj_from_db.pk   # pylint: disable=invalid-name
+        pk = obj_from_db.pk  # pylint: disable=invalid-name
         obj_from_db.delete()
 
         # Verify that object is no longer present in database

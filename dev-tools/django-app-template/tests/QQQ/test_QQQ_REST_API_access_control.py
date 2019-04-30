@@ -23,8 +23,7 @@ from ..utils import verify_REST_API_item_response
 
 # --- Test Suite
 
-class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
-        APITestCase):
+class test_QQQ_REST_API_access_control(APITestCase):
     """
     REST API access control unit tests for QQQ data model
     """

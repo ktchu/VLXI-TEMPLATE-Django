@@ -30,7 +30,7 @@ from ..utils import verify_REST_API_item_response
 
 # --- Test Suite
 
-class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
+class test_QQQ_REST_API(APITestCase):
     """
     REST API unit tests for QQQ data model
     """
