@@ -47,7 +47,7 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
-        # --- Test record to use when creating data objects
+        # --- Construct data for add and edit operations
 
         cls.test_record = {}
 
