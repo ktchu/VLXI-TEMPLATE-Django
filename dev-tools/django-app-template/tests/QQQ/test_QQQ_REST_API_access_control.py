@@ -1,5 +1,5 @@
 """
-REST API access control unit tests for QQQ records
+REST API access control unit tests for QQQ data model
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -26,7 +26,7 @@ from ..utils import verify_REST_API_item_response
 class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         APITestCase):
     """
-    REST API access control unit tests for QQQ records
+    REST API access control unit tests for QQQ data model
     """
     # --- Preparation and clean up
 
