@@ -82,7 +82,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -96,7 +96,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -110,7 +110,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -126,7 +126,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -170,7 +170,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -188,7 +188,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # pk of object to retrieve
         pk = 1
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -206,7 +206,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # Get object to update
         # obj = ...
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
 
         # --- Exercise functionality and check results
@@ -234,7 +234,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # Get object to update
         # obj = ...
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
 
         # --- Exercise functionality and check results
