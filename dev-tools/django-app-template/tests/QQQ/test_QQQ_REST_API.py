@@ -60,8 +60,6 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         """
         Perform preparations required by most tests.
 
-        - Construct test record to use when creating data objects.
-
         - Authenticate APIClient.
         """
         # --- Authenticate APIClient with test user
