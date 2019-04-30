@@ -44,14 +44,14 @@ class test_QQQ_REST_API_access_control(APITestCase):
 
         cls.test_data = {}
 
-        # --- Construct request data for create and edit operations
-
-        cls.request_data = {}
-
         # --- Get test user
 
         user_model = get_user_model()
         cls.user = user_model.objects.filter(...)[0]
+
+        # --- Construct request data for create and edit operations
+
+        cls.request_data = {}
 
     def setUp(self):
         """
