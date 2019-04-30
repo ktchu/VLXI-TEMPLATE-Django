@@ -45,8 +45,14 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
-        # Generate test data
+        # --- Generate test data
+
         cls.test_data = {}
+
+        # --- Get test user
+
+        user_model = get_user_model()
+        cls.user = user_model.objects.filter(is_superuser=True)[0]
 
     def setUp(self):
         """
@@ -56,11 +62,10 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         - Authenticate APIClient.
         """
-        # --- Authenticate APIClient (with admin user)
+        # --- Authenticate APIClient with test user
 
-        email = 'admin-1@example.com'
-        password = 'admin-1'
-        login_succeeded = self.client.login(email=email, password=password)
+        login_succeeded = self.client.login(email=self.user.email,
+                                            password='admin')
         assert login_succeeded
 
     def tearDown(self):

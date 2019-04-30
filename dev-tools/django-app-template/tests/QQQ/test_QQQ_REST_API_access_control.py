@@ -47,6 +47,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         cls.request_data = {}
 
         # --- Get test user
+
         user_model = get_user_model()
         cls.user = user_model.objects.filter(...)[0]
 
@@ -56,7 +57,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
         - Authenticate APIClient.
         """
-        # --- Authenticate test user
+        # --- Authenticate APIClient with test user
 
         login_succeeded = self.client.login(email=self.user.email,
                                             password='password')
