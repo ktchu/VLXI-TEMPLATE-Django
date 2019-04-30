@@ -28,7 +28,7 @@ from django.test import TestCase
 from ..utils import verify_obj
 
 
-# --- Test Suites
+# --- Test Suite
 
 class test_QQQ(TestCase):  # pylint: disable=invalid-name
     """
@@ -63,7 +63,7 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
         Clean up after each test.
         """
 
-    # --- Data model and database tests
+    # --- Tests
 
     def test_BREAD(self):  # pylint: disable=invalid-name
         """

@@ -28,7 +28,7 @@ from ..utils import verify_obj
 from ..utils import verify_REST_API_item_response
 
 
-# --- Test Suites
+# --- Test Suite
 
 class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     """
@@ -78,7 +78,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         self.client.logout()
 
-    # --- Test REST API operations
+    # --- Tests
 
     def test_list(self):
         """
