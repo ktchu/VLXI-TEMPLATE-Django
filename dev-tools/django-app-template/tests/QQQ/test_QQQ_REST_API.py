@@ -25,6 +25,7 @@ from rest_framework.test import APITestCase
 
 # Local packages
 from ..utils import verify_obj
+from ..utils import verify_REST_API_item_response
 
 
 # --- Test Suites
@@ -200,7 +201,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
 
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
-        run_basic_item_response_checks(response)
+        verify_REST_API_item_response(response)
 
     def test_update(self):
         """

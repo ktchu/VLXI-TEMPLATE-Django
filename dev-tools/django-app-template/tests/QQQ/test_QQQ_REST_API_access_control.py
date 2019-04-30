@@ -17,6 +17,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+# Local packages
+from ..utils import verify_REST_API_item_response
+
 
 # --- Test Suites
 
@@ -77,29 +80,32 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'GET' requests
 
-    def test_GET_detail_endpoint(self):
+    def test_GET_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'GET' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
 
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
-        run_basic_item_response_checks(response)
+        verify_REST_API_item_response(response)
 
-    def test_GET_list_endpoint(self):
+    def test_GET_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'GET' requests to 'list' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
+
+        # Compute expected number of records
+        expected_num_records = ...
 
         # --- Exercise functionality and check results
 
@@ -109,13 +115,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'OPTIONS' requests
 
-    def test_OPTIONS_detail_endpoint(self):
+    def test_OPTIONS_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'OPTIONS' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -124,13 +130,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         assert response.status_code == status.HTTP_200_OK
         assert 'actions' in response.data
 
-    def test_OPTIONS_list_endpoint(self):
+    def test_OPTIONS_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'OPTIONS' requests to 'list' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -141,13 +147,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'HEAD' requests
 
-    def test_HEAD_detail_endpoint(self):
+    def test_HEAD_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'HEAD' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -155,13 +161,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.head(url)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_HEAD_list_endpoint(self):
+    def test_HEAD_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'HEAD' requests to 'list' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -171,7 +177,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'POST' requests
 
-    def test_POST_detail_endpoint(self):
+    def test_POST_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'POST' requests to 'detail' endpoint.
 
@@ -184,7 +190,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # Expected status codes
@@ -196,13 +202,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.post(url, self.request_data)
         assert response.status_code in expected_status_codes
 
-    def test_POST_list_endpoint(self):
+    def test_POST_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'POST' requests to 'list' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # --- Exercise functionality and check results
@@ -212,13 +218,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'PUT' requests
 
-    def test_PUT_detail_endpoint(self):
+    def test_PUT_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'PUT' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -226,7 +232,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.put(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_PUT_list_endpoint(self):
+    def test_PUT_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'PUT' requests to 'list' endpoint.
 
@@ -239,7 +245,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # Expected status codes
@@ -253,13 +259,13 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'PATCH' requests
 
-    def test_PATCH_detail_endpoint(self):
+    def test_PATCH_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'PATCH' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -267,7 +273,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.patch(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_PATCH_list_endpoint(self):
+    def test_PATCH_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'PATCH' requests to 'list' endpoint.
 
@@ -280,7 +286,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # Expected status codes
@@ -294,13 +300,16 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'DELETE' requests
 
-    def test_DELETE_detail_endpoint(self):
+    def test_DELETE_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'DELETE' requests to 'detail' endpoint.
         """
         # --- Preparations
 
-        # REST API endpoint
+        # Create record to use to test DELETE request.
+        ...
+
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
         # --- Exercise functionality and check results
@@ -308,7 +317,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.delete(url)
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
-    def test_DELETE_list_endpoint(self):
+    def test_DELETE_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'DELETE' requests to 'list' endpoint.
 
@@ -321,7 +330,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         """
         # --- Preparations
 
-        # REST API endpoint
+        # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
         # Expected status codes
