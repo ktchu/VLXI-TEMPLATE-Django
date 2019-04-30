@@ -67,8 +67,6 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
     def tearDown(self):
         """
         Clean up after each test.
-
-        - Log out APIClient.
         """
         # --- Log out APIClient
 
