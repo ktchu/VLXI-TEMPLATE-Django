@@ -28,7 +28,7 @@ class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
     """
     REST API access control unit tests for QQQ records
     """
-    # --- Test preparation and clean up
+    # --- Preparation and clean up
 
     @classmethod
     def setUpTestData(cls):

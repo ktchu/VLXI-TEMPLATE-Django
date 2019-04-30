@@ -34,7 +34,7 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
     """
     Unit tests for QQQ data model
     """
-    # --- Test preparation and clean up
+    # --- Preparation and clean up
 
     @classmethod
     def setUpTestData(cls):  # pylint: disable=invalid-name

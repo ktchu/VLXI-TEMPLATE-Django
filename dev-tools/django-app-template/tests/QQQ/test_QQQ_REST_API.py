@@ -34,7 +34,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     """
     REST API unit tests for QQQ data model
     """
-    # --- Test preparation and clean up
+    # --- Preparation and clean up
 
     @classmethod
     def setUpTestData(cls):
