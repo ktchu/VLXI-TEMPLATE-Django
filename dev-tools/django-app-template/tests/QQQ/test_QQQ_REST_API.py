@@ -39,8 +39,8 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     @classmethod
     def setUpTestData(cls):
         """
-        Initialize database before running any tests to populate it with
-        data records required by tests.
+        Generate test data (e.g., database records). Perform preparations
+        required by most tests (to redundant operations).
 
         Notes
         -----

@@ -39,14 +39,18 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
     @classmethod
     def setUpTestData(cls):  # pylint: disable=invalid-name
         """
-        Initialize database before running any tests to populate it with
-        data records required by tests.
+        Generate test data (e.g., database records). Perform preparations
+        required by most tests (to redundant operations).
 
         Notes
         -----
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
+        # --- Generate test data
+
+        cls.test_data = generate_test_data()
+
         # --- Construct data for add and edit operations
 
         cls.test_record = {}
