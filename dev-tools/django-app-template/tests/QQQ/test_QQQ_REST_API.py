@@ -59,8 +59,6 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     def setUp(self):
         """
         Perform preparations required by most tests.
-
-        - Authenticate APIClient.
         """
         # --- Authenticate APIClient with test user
 

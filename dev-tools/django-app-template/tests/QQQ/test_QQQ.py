@@ -47,16 +47,14 @@ class test_QQQ(TestCase):  # pylint: disable=invalid-name
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
+        # --- Test record to use when creating data objects
+
+        cls.test_record = {}
 
     def setUp(self):  # pylint: disable=invalid-name
         """
         Perform preparations required by most tests.
-
-        - Construct test record to use when creating data objects.
         """
-        # --- Test record to use when creating data objects
-
-        self.test_record = {}
 
     def tearDown(self):  # pylint: disable=invalid-name
         """
