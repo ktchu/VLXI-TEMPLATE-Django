@@ -1,5 +1,5 @@
 """
-Unit tests for 'XYZ' data model
+Unit tests for QQQ data model
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -30,9 +30,9 @@ from ..utils import verify_obj
 
 # --- Test Suites
 
-class test_XYZ(TestCase):  # pylint: disable=invalid-name
+class test_QQQ(TestCase):  # pylint: disable=invalid-name
     """
-    Unit tests for 'XYZ' data model
+    Unit tests for QQQ data model
     """
     # --- Test preparation and clean up
 
@@ -78,7 +78,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Add
 
         # Create and verify object
-        obj = XYZ.objects.create()
+        obj = QQQ.objects.create()
 
         expected_record = copy.deepcopy(self.test_record)
         verify_obj(obj, expected_record)
@@ -86,7 +86,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ----- Read
 
         # Retrieve and verify object from database
-        obj_from_db = XYZ.objects.get(pk=obj.pk)
+        obj_from_db = QQQ.objects.get(pk=obj.pk)
 
         # ----- Browse
 
@@ -102,11 +102,11 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # no longer present in database
 
         with pytest.raises(ObjectDoesNotExist) as exception_info:
-            XYZ.objects.get()
-        assert 'XYZ matching query does not exist' in str(exception_info)
+            QQQ.objects.get()
+        assert 'QQQ matching query does not exist' in str(exception_info)
 
         # Retrieve and verify object from database
-        obj_from_db = XYZ.objects.get(pk=obj_from_db.pk)
+        obj_from_db = QQQ.objects.get(pk=obj_from_db.pk)
 
         # ------ Delete
 
@@ -116,8 +116,8 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         # Verify that object is no longer present in database
         with pytest.raises(ObjectDoesNotExist) as exception_info:
-            XYZ.objects.get(pk=pk)
-        assert 'XYZ matching query does not exist' in str(exception_info)
+            QQQ.objects.get(pk=pk)
+        assert 'QQQ matching query does not exist' in str(exception_info)
 
     def test_add_optional_fields(self):
         """
@@ -130,12 +130,12 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # ------ Add
 
         # Create and verify object
-        obj = XYZ.objects.create()
+        obj = QQQ.objects.create()
 
         # ----- Read
 
         # Retrieve and verify object from database
-        obj_from_db = XYZ.objects.get(pk=obj.pk)
+        obj_from_db = QQQ.objects.get(pk=obj.pk)
 
     def test_add_not_null_constraints(self):
         """
@@ -153,7 +153,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
 
         with pytest.raises(IntegrityError) as exception_info:
             with transaction.atomic():
-                XYZ.objects.create()
+                QQQ.objects.create()
 
         assert 'NOT NULL constraint failed: ' \
                'xyz.abc_id' in str(exception_info)
@@ -169,7 +169,7 @@ class test_XYZ(TestCase):  # pylint: disable=invalid-name
         # Attempt to create duplicate object
         with pytest.raises(IntegrityError) as exception_info:
             with transaction.atomic():
-                XYZ.objects.create()
+                QQQ.objects.create()
 
         assert 'UNIQUE constraint failed' in str(exception_info)
         assert 'xyz.field_1' in str(exception_info)

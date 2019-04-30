@@ -1,5 +1,5 @@
 """
-REST API access control unit tests for 'XYZ' data model
+REST API access control unit tests for QQQ records
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -12,6 +12,7 @@ contained in the LICENSE file.
 # --- Imports
 
 # Django
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -19,10 +20,10 @@ from rest_framework.test import APITestCase
 
 # --- Test Suites
 
-class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
+class test_QQQ_REST_API_access_control(  # pylint: disable=invalid-name
         APITestCase):
     """
-    REST API access control unit tests for 'XYZ' data model
+    REST API access control unit tests for QQQ records
     """
     # --- Test preparation and clean up
 
@@ -37,26 +38,28 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
-        # Generate test data
+        # --- Generate test data
+
         cls.test_data = {}
+
+        # --- Construct request data for create and edit operations
+
+        cls.request_data = {}
+
+        # --- Get test user
+        user_model = get_user_model()
+        cls.user = user_model.objects.filter(...)[0]
 
     def setUp(self):
         """
         Perform preparations required by most tests.
 
-        - Construct test record to use when creating data objects.
-
         - Authenticate APIClient.
         """
-        # --- Test record to use when creating data objects
+        # --- Authenticate test user
 
-        self.test_record = {}
-
-        # --- Authenticate APIClient (with admin user)
-
-        email = 'admin-1@example.com'
-        password = 'admin-1'
-        login_succeeded = self.client.login(email=email, password=password)
+        login_succeeded = self.client.login(email=self.user.email,
+                                            password='password')
         assert login_succeeded
 
     def tearDown(self):
@@ -73,7 +76,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'GET' requests
 
-    def test_get_request_detail_endpoint(self):
+    def test_GET_detail_endpoint(self):
         """
         Test access control for 'GET' requests to 'detail' endpoint.
         """
@@ -88,7 +91,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         assert response.status_code == status.HTTP_200_OK
         run_basic_item_response_checks(response)
 
-    def test_get_request_list_endpoint(self):
+    def test_GET_list_endpoint(self):
         """
         Test access control for 'GET' requests to 'list' endpoint.
         """
@@ -105,7 +108,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'OPTIONS' requests
 
-    def test_options_request_detail_endpoint(self):
+    def test_OPTIONS_detail_endpoint(self):
         """
         Test access control for 'OPTIONS' requests to 'detail' endpoint.
         """
@@ -120,7 +123,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         assert response.status_code == status.HTTP_200_OK
         assert 'actions' in response.data
 
-    def test_options_request_list_endpoint(self):
+    def test_OPTIONS_list_endpoint(self):
         """
         Test access control for 'OPTIONS' requests to 'list' endpoint.
         """
@@ -137,7 +140,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'HEAD' requests
 
-    def test_head_request_detail_endpoint(self):
+    def test_HEAD_detail_endpoint(self):
         """
         Test access control for 'HEAD' requests to 'detail' endpoint.
         """
@@ -151,7 +154,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.head(url)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_head_request_list_endpoint(self):
+    def test_HEAD_list_endpoint(self):
         """
         Test access control for 'HEAD' requests to 'list' endpoint.
         """
@@ -167,7 +170,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
 
     # ------ 'POST' requests
 
-    def test_post_request_detail_endpoint(self):
+    def test_POST_detail_endpoint(self):
         """
         Test access control for 'POST' requests to 'detail' endpoint.
 
@@ -183,19 +186,16 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
-        # Data for request
-        data = {}
-
         # Expected status codes
         expected_status_codes = [status.HTTP_403_FORBIDDEN,
                                  status.HTTP_405_METHOD_NOT_ALLOWED]
 
         # --- Exercise functionality and check results
 
-        response = self.client.post(url, data)
+        response = self.client.post(url, self.request_data)
         assert response.status_code in expected_status_codes
 
-    def test_post_request_list_endpoint(self):
+    def test_POST_list_endpoint(self):
         """
         Test access control for 'POST' requests to 'list' endpoint.
         """
@@ -204,17 +204,14 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-list')
 
-        # Data for request
-        data = {}
-
         # --- Exercise functionality and check results
 
-        response = self.client.post(url, data)
+        response = self.client.post(url, self.request_data)
         assert response.status_code == status.HTTP_201_CREATED
 
     # ------ 'PUT' requests
 
-    def test_put_request_detail_endpoint(self):
+    def test_PUT_detail_endpoint(self):
         """
         Test access control for 'PUT' requests to 'detail' endpoint.
         """
@@ -223,15 +220,12 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
-        # Data for request
-        data = {}
-
         # --- Exercise functionality and check results
 
-        response = self.client.put(url, data)
+        response = self.client.put(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_put_request_list_endpoint(self):
+    def test_PUT_list_endpoint(self):
         """
         Test access control for 'PUT' requests to 'list' endpoint.
 
@@ -247,21 +241,18 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-list')
 
-        # Data for request
-        data = {}
-
         # Expected status codes
         expected_status_codes = [status.HTTP_403_FORBIDDEN,
                                  status.HTTP_405_METHOD_NOT_ALLOWED]
 
         # --- Exercise functionality and check results
 
-        response = self.client.put(url, data)
+        response = self.client.put(url, self.request_data)
         assert response.status_code in expected_status_codes
 
     # ------ 'PATCH' requests
 
-    def test_patch_request_detail_endpoint(self):
+    def test_PATCH_detail_endpoint(self):
         """
         Test access control for 'PATCH' requests to 'detail' endpoint.
         """
@@ -270,15 +261,12 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
-        # Data for request
-        data = {}
-
         # --- Exercise functionality and check results
 
-        response = self.client.patch(url, data)
+        response = self.client.patch(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_patch_request_list_endpoint(self):
+    def test_PATCH_list_endpoint(self):
         """
         Test access control for 'PATCH' requests to 'list' endpoint.
 
@@ -294,21 +282,18 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         # REST API endpoint
         url = reverse('APP_LABEL:ENDPOINT-list')
 
-        # Data for request
-        data = {}
-
         # Expected status codes
         expected_status_codes = [status.HTTP_403_FORBIDDEN,
                                  status.HTTP_405_METHOD_NOT_ALLOWED]
 
         # --- Exercise functionality and check results
 
-        response = self.client.patch(url, data)
+        response = self.client.patch(url, self.request_data)
         assert response.status_code in expected_status_codes
 
     # ------ 'DELETE' requests
 
-    def test_delete_request_detail_endpoint(self):
+    def test_DELETE_detail_endpoint(self):
         """
         Test access control for 'DELETE' requests to 'detail' endpoint.
         """
@@ -322,7 +307,7 @@ class test_XYZ_REST_API_access_control(  # pylint: disable=invalid-name
         response = self.client.delete(url)
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
-    def test_delete_request_list_endpoint(self):
+    def test_DELETE_list_endpoint(self):
         """
         Test access control for 'DELETE' requests to 'list' endpoint.
 

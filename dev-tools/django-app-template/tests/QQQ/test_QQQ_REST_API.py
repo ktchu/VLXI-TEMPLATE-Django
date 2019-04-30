@@ -1,5 +1,5 @@
 """
-REST API unit tests for 'XYZ' data model
+REST API unit tests for QQQ data model
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -28,9 +28,9 @@ from ..utils import verify_obj
 
 # --- Test Suites
 
-class test_XYZ_REST_API(APITestCase):  # pylint: disable=invalid-name
+class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     """
-    REST API unit tests for 'XYZ' data model
+    REST API unit tests for QQQ data model
     """
     # --- Test preparation and clean up
 
