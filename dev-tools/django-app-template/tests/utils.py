@@ -1,5 +1,5 @@
 """
-Utility functions to support testing.
+Utility functions to support data model and REST API testing.
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -31,7 +31,7 @@ _REVERSE_RELATION_FIELD_TYPES = (
 )
 
 
-# --- Test Suites
+# --- Testing Utility Functions
 
 def verify_obj(obj, expected, skip=None):
     """
@@ -103,3 +103,21 @@ def verify_obj(obj, expected, skip=None):
                 message += "{}".format(expected_value)
 
             raise AssertionError(message)
+
+
+def verify_REST_API_item_response(response):  # pylint: disable=invalid-name
+    """
+    Check common properties of response data for individual items/resources.
+
+    Parameters
+    ----------
+    response : Response
+      Response object returned by APIClient
+
+    Return values
+    -------------
+    None
+    """
+    assert 'id' in response.data
+    assert 'created_at' not in response.data
+    assert 'modified_at' not in response.data
