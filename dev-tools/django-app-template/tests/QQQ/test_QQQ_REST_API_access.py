@@ -140,7 +140,7 @@ class test_QQQ_REST_API_access(APITestCase):
         Notes
         -----
         * By default, Django REST Framework only provides 'actions' when
-          the user is allowed to make collectio-level 'POST' requests.
+          the user is allowed to make collection-level 'POST' requests.
         """
         # --- Preparations
 
