@@ -116,8 +116,8 @@ class test_QQQ_REST_API_access(APITestCase):
 
         Notes
         -----
-        * The response data only includes 'actions' when the user has
-          permissions and access privileges for the requested item.
+        * The REST API response data only includes 'actions' when the user
+          has permissions and access privileges for the requested item.
 
         * By default, Django REST Framework only provides 'actions' when
           the user is allowed to make item-level 'PUT' requests.
