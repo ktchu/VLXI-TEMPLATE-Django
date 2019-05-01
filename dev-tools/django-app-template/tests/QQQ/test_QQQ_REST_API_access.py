@@ -116,11 +116,11 @@ class test_QQQ_REST_API_access(APITestCase):
 
         Notes
         -----
-        * No 'actions' are provided when the user does not have permissions
-          or access privileges for the requested record.
+        * The response data only includes 'actions' when the user has
+          permissions and access privileges for the requested item.
 
-        * No 'actions' are provided when the user does not have any item-level
-          permissions other than 'view_modelname'.
+        * By default, Django REST Framework only provides 'actions' when
+          the user is allowed to make item-level 'PUT' requests.
         """
         # --- Preparations
 
@@ -139,8 +139,8 @@ class test_QQQ_REST_API_access(APITestCase):
 
         Notes
         -----
-        * No 'actions' are provided when the user does not have any
-          collection-level permissions other than 'view_modelname'.
+        * By default, Django REST Framework only provides 'actions' when
+          the user is allowed to make collectio-level 'POST' requests.
         """
         # --- Preparations
 
