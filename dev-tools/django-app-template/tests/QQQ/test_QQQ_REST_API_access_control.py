@@ -113,6 +113,11 @@ class test_QQQ_REST_API_access_control(APITestCase):
     def test_OPTIONS_detail_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'OPTIONS' requests to 'detail' endpoint.
+
+        Notes
+        -----
+        * No 'actions' are provided when the user does not have permissions
+          or access privileges for the requested record.
         """
         # --- Preparations
 
@@ -128,6 +133,11 @@ class test_QQQ_REST_API_access_control(APITestCase):
     def test_OPTIONS_list_endpoint(self):  # pylint: disable=invalid-name
         """
         Test access control for 'OPTIONS' requests to 'list' endpoint.
+
+        Notes
+        -----
+        * No 'actions' are provided when the user does not have any
+          collection-level permissions other than 'view'.
         """
         # --- Preparations
 
