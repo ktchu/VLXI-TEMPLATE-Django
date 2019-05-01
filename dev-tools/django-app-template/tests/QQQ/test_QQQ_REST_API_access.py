@@ -118,6 +118,9 @@ class test_QQQ_REST_API_access(APITestCase):
         -----
         * No 'actions' are provided when the user does not have permissions
           or access privileges for the requested record.
+
+        * No 'actions' are provided when the user does not have any item-level
+          permissions other than 'view_modelname'.
         """
         # --- Preparations
 
@@ -137,7 +140,7 @@ class test_QQQ_REST_API_access(APITestCase):
         Notes
         -----
         * No 'actions' are provided when the user does not have any
-          collection-level permissions other than 'view'.
+          collection-level permissions other than 'view_modelname'.
         """
         # --- Preparations
 
