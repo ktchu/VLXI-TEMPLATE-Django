@@ -1,5 +1,5 @@
 """
-Unit tests for signal handlers that receive signals from QQQ data model
+Unit tests for signal handlers for QQQ data model
 
 ------------------------------------------------------------------------------
 COPYRIGHT/LICENSE.  This file is part of the XYZ package.  It is subject to
@@ -22,7 +22,7 @@ from django.test import TestCase
 
 class test_QQQ_signals(TestCase):
     """
-    Unit tests for signal handlers that receive signals from QQQ data model
+    Unit tests for signal handlers for QQQ data model
 
     Notes
     -----
