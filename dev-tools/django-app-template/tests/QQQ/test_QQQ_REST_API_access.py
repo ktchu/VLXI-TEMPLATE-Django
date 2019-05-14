@@ -198,9 +198,13 @@ class test_QQQ_REST_API_access(APITestCase):
           returned instead of the status code 405 (Method Not Allowed) when
           the user does not have permissions to access the requested record.
 
+        * For POST requests to the 'detail' endpoint, Django REST Framework
+          only checks global permissions - it does not check object-level
+          permissions.
+
         * The Django REST Framework DjangoModelPermission class only allows
-          POST requests for users with the 'add_modelname' permission for the
-          requested object.
+          POST requests for users with the 'add_modelname' permission for
+          the requested data model.
         """
         # --- Preparations
 
