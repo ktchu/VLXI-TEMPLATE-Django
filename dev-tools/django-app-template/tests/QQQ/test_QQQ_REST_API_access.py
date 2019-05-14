@@ -193,20 +193,28 @@ class test_QQQ_REST_API_access(APITestCase):
         -----
         * Django REST Framework disallows POST requests to 'detail' endpoint.
 
-        * Django checks permissions before checking whether the HTTP method is
-          allowed, so the status code 403 (Forbidden) is returned instead of
-          the status code 405 (Method Not Allowed) when the user does not
-          have permissions to access the requested record.
+        * Django does returns one of the following status codes for
+          disallowed HTTP methods:
+
+          - 403 (Forbidden)
+
+          - 405 (Method Not Allowed).
+
+          The status code returned is not consistent, so we check both.
         """
         # --- Preparations
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
+        # Allowed status codes
+        allowed_status_codes = [status.HTTP_403_FORBIDDEN,
+                                status.HTTP_405_METHOD_NOT_ALLOWED]
+
         # --- Exercise functionality and check results
 
         response = self.client.post(url, self.request_data)
-        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+        assert response.status_code in allowed_status_codes
 
     def test_POST_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -246,20 +254,28 @@ class test_QQQ_REST_API_access(APITestCase):
         -----
         * Django REST Framework disallows PUT requests to 'list' endpoint.
 
-        * Django checks permissions before checking whether the HTTP method is
-          allowed, so the status code 403 (Forbidden) is returned instead of
-          the status code 405 (Method Not Allowed) when the user does not
-          have permissions to access the requested record.
+        * Django does returns one of the following status codes for
+          disallowed HTTP methods:
+
+          - 403 (Forbidden)
+
+          - 405 (Method Not Allowed).
+
+          The status code returned is not consistent, so we check both.
         """
         # --- Preparations
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
+        # Allowed status codes
+        allowed_status_codes = [status.HTTP_403_FORBIDDEN,
+                                status.HTTP_405_METHOD_NOT_ALLOWED]
+
         # --- Exercise functionality and check results
 
         response = self.client.put(url, self.request_data)
-        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+        assert response.status_code in allowed_status_codes
 
     # ------ 'PATCH' requests
 
@@ -285,20 +301,28 @@ class test_QQQ_REST_API_access(APITestCase):
         -----
         * Django REST Framework disallows PATCH requests to 'list' endpoint.
 
-        * Django checks permissions before checking whether the HTTP method is
-          allowed, so the status code 403 (Forbidden) is returned instead of
-          the status code 405 (Method Not Allowed) when the user does not
-          have permissions to access the requested record.
+        * Django does returns one of the following status codes for
+          disallowed HTTP methods:
+
+          - 403 (Forbidden)
+
+          - 405 (Method Not Allowed).
+
+          The status code returned is not consistent, so we check both.
         """
         # --- Preparations
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
+        # Allowed status codes
+        allowed_status_codes = [status.HTTP_403_FORBIDDEN,
+                                status.HTTP_405_METHOD_NOT_ALLOWED]
+
         # --- Exercise functionality and check results
 
         response = self.client.patch(url, self.request_data)
-        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+        assert response.status_code in allowed_status_codes
 
     # ------ 'DELETE' requests
 
@@ -327,17 +351,25 @@ class test_QQQ_REST_API_access(APITestCase):
         -----
         * Django REST Framework disallows DELETE requests to 'list' endpoint.
 
-        * Django checks permissions before checking whether the HTTP method is
-          allowed, so the status code 403 (Forbidden) is returned instead of
-          the status code 405 (Method Not Allowed) when the user does not
-          have permissions to access the requested record.
+        * Django does returns one of the following status codes for
+          disallowed HTTP methods:
+
+          - 403 (Forbidden)
+
+          - 405 (Method Not Allowed).
+
+          The status code returned is not consistent, so we check both.
         """
         # --- Preparations
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-list')
 
+        # Allowed status codes
+        allowed_status_codes = [status.HTTP_403_FORBIDDEN,
+                                status.HTTP_405_METHOD_NOT_ALLOWED]
+
         # --- Exercise functionality and check results
 
         response = self.client.delete(url)
-        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+        assert response.status_code in allowed_status_codes
