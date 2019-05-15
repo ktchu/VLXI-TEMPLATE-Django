@@ -250,4 +250,4 @@ class test_QQQ(TestCase):
         Test properties.
         """
 
-    # --- Other tests (e.g., signals, custom permissions, etc.)
+    # --- Other tests (e.g., custom permissions, etc.)
