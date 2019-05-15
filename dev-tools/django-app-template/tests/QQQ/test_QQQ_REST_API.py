@@ -87,7 +87,10 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Send request
         response = self.client.get(url)
+
+        # Check response
         assert response.status_code == status.HTTP_200_OK
 
     def test_list_with_filters(self):
@@ -101,7 +104,10 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Send request
         response = self.client.get(url, data)
+
+        # Check response
         assert response.status_code == status.HTTP_200_OK
 
     def test_create(self):
@@ -115,8 +121,13 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Construct request data
         data = {}
+
+        # Send request
         response = self.client.post(url, data)
+
+        # Check response
         assert response.status_code == status.HTTP_201_CREATED
 
     def test_create_with_data_field_violations(self):
@@ -136,7 +147,7 @@ class test_QQQ_REST_API(APITestCase):
         # List of required fields
         required_fields = []
 
-        # Test data
+        # Construct request data
         data = {}
 
         # Verify that error is raised for each required field
@@ -144,7 +155,7 @@ class test_QQQ_REST_API(APITestCase):
         for required_field in required_fields:
             del invalid_data[required_field]
 
-        # Attempt to create record
+        # Send request
         response = self.client.post(url, invalid_data)
 
         # Check response
@@ -175,8 +186,13 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Construct request data
         data = {}
+
+        # Send request
         response = self.client.post(url, data)
+
+        # Check response
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_retrieve(self):
@@ -193,7 +209,10 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Send request
         response = self.client.get(url)
+
+        # Check response
         assert response.status_code == status.HTTP_200_OK
         verify_REST_API_item_response(response)
 
@@ -213,8 +232,13 @@ class test_QQQ_REST_API(APITestCase):
 
         # ------ 'PUT' request with valid data
 
+        # Construct request data
         data = {}
+
+        # Send request
         response = self.client.put(url, data)
+
+        # Check response
         assert response.status_code == status.HTTP_200_OK
 
         # ------ Verify that 'PUT' is idempotent
@@ -241,8 +265,13 @@ class test_QQQ_REST_API(APITestCase):
 
         # ------ 'PATCH' request with valid data
 
+        # Construct request data
         data = {}
+
+        # Send request
         response = self.client.patch(url, data)
+
+        # Check response
         assert response.status_code == status.HTTP_200_OK
 
         # ------ 'PATCH' request with invalid data
@@ -264,7 +293,11 @@ class test_QQQ_REST_API(APITestCase):
 
         # Delete record
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
+
+        # Send request
         response = self.client.delete(url)
+
+        # Check response
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
         # Check that 'GET' request returns 404 error
