@@ -50,6 +50,7 @@ class test_QQQ_REST_API(APITestCase):
         # --- Generate test data
 
         cls.test_data = {}
+        cls.qqqs = cls.test_data['qqqs']
 
         # --- Get test user
 
@@ -93,6 +94,18 @@ class test_QQQ_REST_API(APITestCase):
         # Check response
         assert response.status_code == status.HTTP_200_OK
 
+        for response_data, expected_data in zip(response.data, self.qqqs):
+            # Construct expected response
+            expected_response_data = copy.deepcopy(expected_data)
+
+            # Database fields that are unavailable to be tested
+            response_data.pop('id')
+
+            assert response_data == expected_response_data
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
+
     def test_list_with_filters(self):
         """
         Test 'list' function (GET request to 'list' endpoint) with filters.
@@ -132,6 +145,22 @@ class test_QQQ_REST_API(APITestCase):
 
         # Check response
         assert response.status_code == status.HTTP_201_CREATED
+        verify_REST_API_item_response(response)
+
+        # Database fields that are unavailable to be tested
+        record_id = response.data.pop('id')
+
+        # Construct expected response
+        expected_response_data = copy.deepcopy(data)
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs) + 1
+
+        # Check database record
+        obj_from_db = QQQ.objects.get(pk=record_id)
+        expected_record = copy.deepcopy(expected_response_data)
+
+        verify_obj(obj_from_db, expected_record)
 
     def test_create_with_data_field_violations(self):
         """
@@ -225,6 +254,7 @@ class test_QQQ_REST_API(APITestCase):
             assert error in errors
 
         # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
 
     def test_retrieve(self):
         """
@@ -250,6 +280,20 @@ class test_QQQ_REST_API(APITestCase):
         assert response.status_code == status.HTTP_200_OK
         verify_REST_API_item_response(response)
 
+        obj_data_before_op = QQQSerializer(obj_before_op).data
+        assert response.data == obj_data_before_op
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
+
+        # Check record is unchanged in database
+        obj_after_op = QQQ.objects.get(pk=pk)
+        assert obj_after_op.created_at == obj_before_op.created_at
+        assert obj_after_op.modified_at == obj_before_op.modified_at
+
+        obj_data_after_op = QQQSerializer(obj_after_op).data
+        assert obj_data_after_op == obj_data_before_op
+
     def test_update(self):
         """
         Test 'update' function (PUT request to 'detail' endpoint).
@@ -258,6 +302,7 @@ class test_QQQ_REST_API(APITestCase):
 
         # Get object from database
         obj_before_op = ...
+        obj_data_before_op = QQQSerializer(obj_before_op).data
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj_before_op.pk,))
@@ -274,14 +319,63 @@ class test_QQQ_REST_API(APITestCase):
 
         # Check response
         assert response.status_code == status.HTTP_200_OK
+        verify_REST_API_item_response(response)
+
+        expected_response_data = copy.deepcopy(data)
+
+        assert response.data == expected_response_data
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
+
+        # Check record in database
+        obj_after_op = QQQ.objects.get(pk=pk)
+        assert obj_after_op.created_at == obj_before_op.created_at
+        assert obj_after_op.modified_at > obj_before_op.modified_at
+
+        obj_data_after_op = QQQSerializer(obj_after_op).data
+        assert obj_data_after_op == response.data
 
         # ------ Verify that 'PUT' is idempotent
 
+        # Re-send identical REST API request
+        response = self.client.put(url, data)
+
+        # Check response
+        assert response.status_code == status.HTTP_200_OK
+        verify_REST_API_item_response(response)
+
+        assert response.data == obj_data_after_op
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
+
+        # Check record in database
+        obj_after_repeat_op = QQQ.objects.get(pk=pk)
+        assert obj_after_repeat_op.created_at == obj_after_op.created_at
+        assert obj_after_repeat_op.modified_at > obj_after_op.modified_at
+
+        obj_data_after_repeat_op = QQQSerializer(obj_after_repeat_op).data
+        assert obj_data_after_repeat_op == obj_data_after_op
+
         # ------ 'PUT' request with invalid data
 
-        # Check that request fails
+        # Construct invalid data to send with 'PUT' request
+        data = copy.deepcopy(obj_data_before_op)
 
-        # Verify that database record has not be updated
+        # Send request
+        response = self.client.put(url, data)
+
+        # Check response
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+        # Check record in database
+        obj_after_bad_op = QQQ.objects.get(pk=pk)
+        assert obj_after_bad_op.created_at == obj_after_repeat_op.created_at
+        assert obj_after_bad_op.modified_at == obj_after_repeat_op.modified_at
+
+        obj_data_after_bad_op = QQQSerializer(obj_after_bad_op).data
+        assert obj_data_after_bad_op == obj_data_after_op
 
     def test_partial_update(self):
         """
@@ -291,6 +385,7 @@ class test_QQQ_REST_API(APITestCase):
 
         # Get object from database
         obj_before_op = ...
+        obj_data_before_op = QQQSerializer(obj_before_op).data
 
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj_before_op.pk,))
@@ -307,12 +402,41 @@ class test_QQQ_REST_API(APITestCase):
 
         # Check response
         assert response.status_code == status.HTTP_200_OK
+        verify_REST_API_item_response(response)
+
+        expected_response_data = copy.deepcopy(obj_data_before_op)
+
+        assert response.data == expected_response_data
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
+
+        # Check record in database
+        obj_after_op = QQQ.objects.get(pk=pk)
+        assert obj_after_op.created_at == obj_before_op.created_at
+        assert obj_after_op.modified_at > obj_before_op.modified_at
+
+        obj_data_after_op = QQQSerializer(obj_after_op).data
+        assert obj_data_after_op == response.data
 
         # ------ 'PATCH' request with invalid data
 
-        # Check that request fails
+        # Construct invalid data to send with 'PATCH' request
+        data = {}
 
-        # Verify that database record has not be updated
+        # Send request
+        response = self.client.patch(url, data)
+
+        # Check response
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+        # Check record in database
+        obj_after_bad_op = QQQ.objects.get(pk=pk)
+        assert obj_after_bad_op.created_at == obj_after_op.created_at
+        assert obj_after_bad_op.modified_at == obj_after_op.modified_at
+
+        obj_data_after_bad_op = QQQSerializer(obj_after_bad_op).data
+        assert obj_data_after_bad_op == obj_data_after_op
 
     def test_destroy(self):
         """
@@ -333,6 +457,9 @@ class test_QQQ_REST_API(APITestCase):
 
         # Check response
         assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        # Check database record count
+        assert QQQ.objects.count() == len(self.qqqs)
 
         # Check that 'GET' request returns 404 error
         response = self.client.get(url)
