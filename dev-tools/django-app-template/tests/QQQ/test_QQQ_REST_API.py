@@ -235,6 +235,9 @@ class test_QQQ_REST_API(APITestCase):
         # pk of object to retrieve
         pk = 1
 
+        # Get object from database
+        obj_before_op = ...
+
         # REST API URL
         url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
 
@@ -253,11 +256,11 @@ class test_QQQ_REST_API(APITestCase):
         """
         # --- Preparations
 
-        # Get object to update
-        # obj = ...
+        # Get object from database
+        obj_before_op = ...
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj_before_op.pk,))
 
         # --- Exercise functionality and check results
 
@@ -286,11 +289,11 @@ class test_QQQ_REST_API(APITestCase):
         """
         # --- Preparations
 
-        # Get object to update
-        # obj = ...
+        # Get object from database
+        obj_before_op = ...
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj_before_op.pk,))
 
         # --- Exercise functionality and check results
 
@@ -318,7 +321,7 @@ class test_QQQ_REST_API(APITestCase):
         # --- Preparations
 
         # Get object to destroy
-        # obj = ...
+        obj = ...
 
         # --- Exercise functionality and check results
 
