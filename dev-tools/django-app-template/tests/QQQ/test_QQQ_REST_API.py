@@ -104,6 +104,9 @@ class test_QQQ_REST_API(APITestCase):
 
         # --- Exercise functionality and check results
 
+        # Construct request data
+        data = {}
+
         # Send request
         response = self.client.get(url, data)
 
@@ -194,6 +197,34 @@ class test_QQQ_REST_API(APITestCase):
 
         # Check response
         assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+        # Example: unique field
+        assert 'field' in response.data
+        error_codes = [error.code for error in response.data['field']]
+        expected_error_codes = ['unique']
+        for error_code in expected_error_codes:
+            assert error_code in error_codes
+
+        errors = [str(error) for error in response.data['field']]
+        expected_errors = ['This field must be unique.']
+        for error in expected_errors:
+            assert error in errors
+
+        # Example: unique_together
+        assert 'non_field_errors' in response.data
+        error_codes = [error.code for error
+                       in response.data['non_field_errors']]
+        expected_error_codes = ['unique']
+        for error_code in expected_error_codes:
+            assert error_code in error_codes
+
+        errors = [str(error) for error in response.data['non_field_errors']]
+        expected_errors = ['The fields xx, yy, zz '
+                           'must make a unique set.']
+        for error in expected_errors:
+            assert error in errors
+
+        # Check database record count
 
     def test_retrieve(self):
         """
