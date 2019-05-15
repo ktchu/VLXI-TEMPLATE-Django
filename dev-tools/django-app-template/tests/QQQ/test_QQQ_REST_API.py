@@ -262,9 +262,6 @@ class test_QQQ_REST_API(APITestCase):
         """
         # --- Preparations
 
-        # pk of object to retrieve
-        pk = 1
-
         # Get object from database
         obj_before_op = ...
 
@@ -287,7 +284,7 @@ class test_QQQ_REST_API(APITestCase):
         assert QQQ.objects.count() == len(self.qqqs)
 
         # Check record is unchanged in database
-        obj_after_op = QQQ.objects.get(pk=pk)
+        obj_after_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_op.created_at == obj_before_op.created_at
         assert obj_after_op.modified_at == obj_before_op.modified_at
 
@@ -312,7 +309,8 @@ class test_QQQ_REST_API(APITestCase):
         # ------ 'PUT' request with valid data
 
         # Construct request data
-        data = {}
+        data = copy.deepcopy(obj_data_before_op)
+        data[...] = ... # Modify field values
 
         # Send request
         response = self.client.put(url, data)
@@ -329,7 +327,7 @@ class test_QQQ_REST_API(APITestCase):
         assert QQQ.objects.count() == len(self.qqqs)
 
         # Check record in database
-        obj_after_op = QQQ.objects.get(pk=pk)
+        obj_after_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_op.created_at == obj_before_op.created_at
         assert obj_after_op.modified_at > obj_before_op.modified_at
 
@@ -351,7 +349,7 @@ class test_QQQ_REST_API(APITestCase):
         assert QQQ.objects.count() == len(self.qqqs)
 
         # Check record in database
-        obj_after_repeat_op = QQQ.objects.get(pk=pk)
+        obj_after_repeat_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_repeat_op.created_at == obj_after_op.created_at
         assert obj_after_repeat_op.modified_at > obj_after_op.modified_at
 
@@ -362,6 +360,7 @@ class test_QQQ_REST_API(APITestCase):
 
         # Construct invalid data to send with 'PUT' request
         data = copy.deepcopy(obj_data_before_op)
+        data[...] = ... # Modify field values
 
         # Send request
         response = self.client.put(url, data)
@@ -370,7 +369,7 @@ class test_QQQ_REST_API(APITestCase):
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
         # Check record in database
-        obj_after_bad_op = QQQ.objects.get(pk=pk)
+        obj_after_bad_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_bad_op.created_at == obj_after_repeat_op.created_at
         assert obj_after_bad_op.modified_at == obj_after_repeat_op.modified_at
 
@@ -412,7 +411,7 @@ class test_QQQ_REST_API(APITestCase):
         assert QQQ.objects.count() == len(self.qqqs)
 
         # Check record in database
-        obj_after_op = QQQ.objects.get(pk=pk)
+        obj_after_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_op.created_at == obj_before_op.created_at
         assert obj_after_op.modified_at > obj_before_op.modified_at
 
@@ -431,7 +430,7 @@ class test_QQQ_REST_API(APITestCase):
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
         # Check record in database
-        obj_after_bad_op = QQQ.objects.get(pk=pk)
+        obj_after_bad_op = QQQ.objects.get(pk=obj_before_op.pk)
         assert obj_after_bad_op.created_at == obj_after_op.created_at
         assert obj_after_bad_op.modified_at == obj_after_op.modified_at
 
