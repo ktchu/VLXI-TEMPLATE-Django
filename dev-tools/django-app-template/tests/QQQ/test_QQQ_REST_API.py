@@ -458,7 +458,7 @@ class test_QQQ_REST_API(APITestCase):
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
         # Check database record count
-        assert QQQ.objects.count() == len(self.qqqs)
+        assert QQQ.objects.count() == len(self.qqqs) - 1
 
         # Check that 'GET' request returns 404 error
         response = self.client.get(url)
