@@ -30,7 +30,7 @@ from ..utils import verify_REST_API_item_response
 
 # --- Test Suite
 
-class test_QQQ_REST_API(APITestCase):
+class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
     """
     REST API unit tests for QQQ data model
     """
@@ -47,6 +47,8 @@ class test_QQQ_REST_API(APITestCase):
         * setUpTestData() is only called once for the entire TestCase,
           so these database records should not be modified within tests.
         """
+        # pylint: disable=no-member
+
         # --- Generate test data
 
         cls.test_data = {}
@@ -81,6 +83,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'list' function (GET request to 'list' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # REST API URL
@@ -130,6 +134,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'create' function (POST request to 'list' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # REST API URL
@@ -211,6 +217,8 @@ class test_QQQ_REST_API(APITestCase):
         Test 'create' function (POST request to 'list' endpoint) with
         uniqueness violations.
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # REST API URL
@@ -260,6 +268,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'retrieve' function (GET request to 'detail' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # Get object from database
@@ -295,6 +305,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'update' function (PUT request to 'detail' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # Get object from database
@@ -310,7 +322,7 @@ class test_QQQ_REST_API(APITestCase):
 
         # Construct request data
         data = copy.deepcopy(obj_data_before_op)
-        data[...] = ... # Modify field values
+        data[...] = ...  # Modify field values
 
         # Send request
         response = self.client.put(url, data)
@@ -360,7 +372,7 @@ class test_QQQ_REST_API(APITestCase):
 
         # Construct invalid data to send with 'PUT' request
         data = copy.deepcopy(obj_data_before_op)
-        data[...] = ... # Modify field values
+        data[...] = ...  # Modify field values
 
         # Send request
         response = self.client.put(url, data)
@@ -380,6 +392,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'partial_update' function (PATCH request to 'detail' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # Get object from database
@@ -441,6 +455,8 @@ class test_QQQ_REST_API(APITestCase):
         """
         Test 'destroy' function (DELETE request to 'detail' endpoint).
         """
+        # pylint: disable=no-member
+
         # --- Preparations
 
         # Get object to destroy
