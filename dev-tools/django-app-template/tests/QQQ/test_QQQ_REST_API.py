@@ -204,13 +204,13 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
             error_codes = [error.code for error
                            in response.data[required_field]]
             expected_error_codes = ['required']
-            for error_code in expected_error_codes:
-                assert error_code in error_codes
+            for expected_error_code in expected_error_codes:
+                assert expected_error_code in error_codes
 
             errors = [str(error) for error in response.data[required_field]]
             expected_errors = ['This field is required.']
-            for error in expected_errors:
-                assert error in errors
+            for expected_error in expected_errors:
+                assert expected_error in errors
 
     def test_create_with_uniqueness_violations(self):
         """
@@ -239,27 +239,27 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         assert 'field' in response.data
         error_codes = [error.code for error in response.data['field']]
         expected_error_codes = ['unique']
-        for error_code in expected_error_codes:
-            assert error_code in error_codes
+        for expected_error_code in expected_error_codes:
+            assert expected_error_code in error_codes
 
         errors = [str(error) for error in response.data['field']]
         expected_errors = ['This field must be unique.']
-        for error in expected_errors:
-            assert error in errors
+        for expected_error in expected_errors:
+            assert expected_error in errors
 
         # Example: unique_together
         assert 'non_field_errors' in response.data
         error_codes = [error.code for error
                        in response.data['non_field_errors']]
         expected_error_codes = ['unique']
-        for error_code in expected_error_codes:
-            assert error_code in error_codes
+        for expected_error_code in expected_error_codes:
+            assert expected_error_code in error_codes
 
         errors = [str(error) for error in response.data['non_field_errors']]
         expected_errors = ['The fields xx, yy, zz '
                            'must make a unique set.']
-        for error in expected_errors:
-            assert error in errors
+        for expected_error in expected_errors:
+            assert expected_error in errors
 
         # Check database record count
         assert QQQ.objects.count() == len(self.qqqs)
