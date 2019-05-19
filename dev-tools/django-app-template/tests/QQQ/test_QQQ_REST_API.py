@@ -276,7 +276,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         obj_before_op = ...
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj_before_op.pk,))
 
         # --- Exercise functionality and check results
 
