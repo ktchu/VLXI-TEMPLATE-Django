@@ -227,6 +227,7 @@ class test_QQQ_REST_API(APITestCase):  # pylint: disable=invalid-name
         # --- Exercise functionality and check results
 
         # Construct request data
+        obj = ...
         data = {}
 
         # Send request
