@@ -11,6 +11,9 @@ contained in the LICENSE file.
 """
 # --- Imports
 
+# Standard library
+import copy
+
 # Django
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -53,7 +56,7 @@ class test_QQQ_REST_API_access(APITestCase):
 
         cls.request_data = {}
 
-        # --- Get data object for detail requests
+        # --- Get data objects for detail requests
 
         cls.obj = QQQ.objects.all()[0]
 
@@ -329,10 +332,12 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # Create record to use to test DELETE request.
-        ...
+        request_data = copy.deepcopy(self.request_data)
+        request_data[...] = 'DELETE Test'
+        obj = QQQ.objects.create(**request_data)
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
 
         # --- Exercise functionality and check results
 
