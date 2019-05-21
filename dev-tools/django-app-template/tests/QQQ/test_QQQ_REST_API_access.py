@@ -86,13 +86,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'GET' requests to 'detail' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
         verify_REST_API_item_response(response)
@@ -103,14 +99,12 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Preparations
 
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # Compute expected number of records
         expected_num_records = ...
 
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == expected_num_records
@@ -129,13 +123,9 @@ class test_QQQ_REST_API_access(APITestCase):
         * By default, Django REST Framework only provides 'actions' when
           the user is allowed to make item-level 'PUT' requests.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.options(url)
         assert response.status_code == status.HTTP_200_OK
         assert 'actions' in response.data
@@ -149,13 +139,9 @@ class test_QQQ_REST_API_access(APITestCase):
         * By default, Django REST Framework only provides 'actions' when
           the user is allowed to make collection-level 'POST' requests.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.options(url)
         assert response.status_code == status.HTTP_200_OK
         assert 'actions' in response.data
@@ -166,13 +152,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'HEAD' requests to 'detail' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.head(url)
         assert response.status_code == status.HTTP_200_OK
 
@@ -180,13 +162,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'HEAD' requests to 'list' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.head(url)
         assert response.status_code == status.HTTP_200_OK
 
@@ -213,13 +191,9 @@ class test_QQQ_REST_API_access(APITestCase):
           POST requests for users with the 'add_modelname' permission for
           the requested data model.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.post(url, self.request_data)
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
@@ -227,13 +201,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'POST' requests to 'list' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.post(url, self.request_data)
         assert response.status_code == status.HTTP_201_CREATED
 
@@ -243,13 +213,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'PUT' requests to 'detail' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.put(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
@@ -270,13 +236,9 @@ class test_QQQ_REST_API_access(APITestCase):
           PUT requests for users with the 'change_modelname' permission for the
           requested object.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.put(url, self.request_data)
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
@@ -286,13 +248,9 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'PATCH' requests to 'detail' endpoint.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
         response = self.client.patch(url, self.request_data)
         assert response.status_code == status.HTTP_200_OK
 
@@ -313,13 +271,9 @@ class test_QQQ_REST_API_access(APITestCase):
           PATCH requests for users with the 'change_modelname' permission for
           the requested object.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.patch(url, self.request_data)
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
@@ -336,11 +290,9 @@ class test_QQQ_REST_API_access(APITestCase):
         request_data[...] = 'DELETE Test'
         obj = QQQ.objects.create(**request_data)
 
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
         response = self.client.delete(url)
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
@@ -361,12 +313,8 @@ class test_QQQ_REST_API_access(APITestCase):
           DELETE requests for users with the 'delete_modelname' permission for
           the requested object.
         """
-        # --- Preparations
-
-        # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-list')
-
         # --- Exercise functionality and check results
 
+        url = reverse('APP_LABEL:ENDPOINT-list')
         response = self.client.delete(url)
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
