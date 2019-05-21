@@ -53,6 +53,10 @@ class test_QQQ_REST_API_access(APITestCase):
 
         cls.request_data = {}
 
+        # --- Get data object for detail requests
+
+        cls.obj = QQQ.objects.all()[0]
+
     def setUp(self):
         """
         Perform preparations required by most tests.
@@ -82,7 +86,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -125,7 +129,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -162,7 +166,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -209,7 +213,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -239,7 +243,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -282,7 +286,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Preparations
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
@@ -328,7 +332,7 @@ class test_QQQ_REST_API_access(APITestCase):
         ...
 
         # REST API URL
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(pk,))
+        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
 
         # --- Exercise functionality and check results
 
