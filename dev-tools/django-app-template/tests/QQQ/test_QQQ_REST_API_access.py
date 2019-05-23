@@ -58,7 +58,11 @@ class test_QQQ_REST_API_access(APITestCase):
 
         # --- Get data objects for detail requests
 
-        cls.obj = QQQ.objects.all()[0]
+        # Object that user has access privileges for
+        cls.obj_user_has_access = QQQ.objects.filter(...)[0]
+
+        # Object that user does not have access privileges for
+        cls.obj_user_no_access = QQQ.objects.filter(...)[0]
 
     def setUp(self):
         """
@@ -88,10 +92,20 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.get(url)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.get(url_user_has_access)
         assert response.status_code == status.HTTP_200_OK
         verify_REST_API_item_response(response)
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.get(url_user_no_access)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_GET_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -125,10 +139,21 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.options(url)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.options(url_user_has_access)
         assert response.status_code == status.HTTP_200_OK
         assert 'actions' in response.data
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.options(url_user_no_access)
+        assert response.status_code == status.HTTP_200_OK
+        assert 'actions' not in response.data
 
     def test_OPTIONS_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -154,9 +179,19 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.head(url)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.head(url_user_has_access)
         assert response.status_code == status.HTTP_200_OK
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.head(url_user_no_access)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_HEAD_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -193,8 +228,20 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.post(url, self.request_data)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.post(url_user_has_access,
+                                    data=self.request_data)
+        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.post(url_user_no_access,
+                                    data=self.request_data)
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
     def test_POST_list_endpoint(self):  # pylint: disable=invalid-name
@@ -215,9 +262,21 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.put(url, self.request_data)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.put(url_user_has_access,
+                                   data=self.request_data)
         assert response.status_code == status.HTTP_200_OK
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.put(url_user_no_access,
+                                   data=self.request_data)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_PUT_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -250,9 +309,21 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(self.obj.pk,))
-        response = self.client.patch(url, self.request_data)
+        # ------ Object that user has access privileges for
+
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(self.obj_user_has_access.pk,))
+        response = self.client.patch(url_user_has_access,
+                                     data=self.request_data)
         assert response.status_code == status.HTTP_200_OK
+
+        # ------ Object that user does not have access privileges for
+
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(self.obj_user_no_access.pk,))
+        response = self.client.patch(url_user_no_access,
+                                     data=self.request_data)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_PATCH_list_endpoint(self):  # pylint: disable=invalid-name
         """
@@ -283,18 +354,29 @@ class test_QQQ_REST_API_access(APITestCase):
         """
         Test access control for 'DELETE' requests to 'detail' endpoint.
         """
-        # --- Preparations
-
-        # Create record to use to test DELETE request.
-        request_data = copy.deepcopy(self.request_data)
-        request_data[...] = 'DELETE Test'
-        obj = QQQ.objects.create(**request_data)
-
         # --- Exercise functionality and check results
 
-        url = reverse('APP_LABEL:ENDPOINT-detail', args=(obj.pk,))
-        response = self.client.delete(url)
+        # ------ Object that user has access privileges for
+
+        # Create record to use to test DELETE request.
+        obj_user_has_access = QQQ.objects.create(...)
+
+        # Send request and check response
+        url_user_has_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                      args=(obj_user_has_access.pk,))
+        response = self.client.delete(url_user_has_access)
         assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        # ------ Object that user does not have access privileges for
+
+        # Create record to use to test DELETE request.
+        obj_user_no_access = QQQ.objects.create(...)
+
+        # Send request and check response
+        url_user_no_access = reverse('APP_LABEL:ENDPOINT-detail',
+                                     args=(obj_user_no_access.pk,))
+        response = self.client.delete(url_user_no_access)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_DELETE_list_endpoint(self):  # pylint: disable=invalid-name
         """
