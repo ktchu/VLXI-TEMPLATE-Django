@@ -251,7 +251,7 @@ class test_QQQ_REST_API_access(APITestCase):
         # --- Exercise functionality and check results
 
         url = reverse('APP_LABEL:ENDPOINT-list')
-        response = self.client.post(url, self.request_data)
+        response = self.client.post(url, data=self.request_data)
         assert response.status_code == status.HTTP_201_CREATED
 
     # ------ 'PUT' requests
