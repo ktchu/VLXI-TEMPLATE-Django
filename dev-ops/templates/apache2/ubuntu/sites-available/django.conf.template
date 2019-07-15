@@ -1,0 +1,51 @@
+<VirtualHost *:80>
+    ServerName {{ SERVER_NAME }}
+    Redirect permanent / https://{{ SERVER_NAME }}
+</VirtualHost>
+
+<VirtualHost *:443>
+
+    ServerName {{ SERVER_NAME }}
+    ServerAdmin {{ SERVER_ADMIN }}
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine on
+    SSLCertificateKeyFile /etc/apache2/ssl/{{ DJANGO_PROJECT_NAME }}.key
+    SSLCertificateFile /etc/apache2/ssl/{{ DJANGO_PROJECT_NAME }}.crt
+    SSLCertificateChainFile /etc/apache2/ssl/{{ DJANGO_PROJECT_NAME }}.ca-bundle
+
+    Alias /robots.txt {{ DJANGO_PROJECT_HOME }}/static/robots.txt
+    Alias /favicon.ico {{ DJANGO_PROJECT_HOME }}/static/favicon.ico
+
+    AliasMatch ^/([^/]*\.css) {{ DJANGO_PROJECT_HOME }}/static/styles/$1
+
+    Alias /media/ {{ DJANGO_PROJECT_HOME }}/media/
+    Alias /static/ {{ DJANGO_PROJECT_HOME }}/static/
+
+    <Directory {{ DJANGO_PROJECT_HOME }}/static>
+        Require all granted
+    </Directory>
+
+    <Directory {{ DJANGO_PROJECT_HOME }}/media>
+        Require all granted
+    </Directory>
+
+    WSGIDaemonProcess {{DJANGO_PROJECT_NAME }} python-home={{ VIRTUALENV_HOME }} python-path={{ DJANGO_PROJECT_HOME }}
+    WSGIProcessGroup {{ DJANGO_PROJECT_NAME }}
+    WSGIScriptAlias / {{ DJANGO_PROJECT_HOME }}/{{ DJANGO_PROJECT_NAME }}/wsgi.py \
+        process-group={{ DJANGO_PROJECT_NAME }} application-group=%{GLOBAL}
+
+    <Directory {{ DJANGO_PROJECT_HOME }}/{{ DJANGO_PROJECT_NAME }}>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    BrowserMatch "MSIE [2-6]" \
+        nokeepalive ssl-unclean-shutdown \
+        downgrade-1.0 force-response-1.0
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+</VirtualHost>

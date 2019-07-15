@@ -1,0 +1,43 @@
+Apache Configuration Notes
+==========================
+
+* The `0-ssl.conf.template` contains the following modifications of the
+  default `/etc/httpd/conf.d/ssl.conf` installed with the `httpd24` package.
+
+  - The default TLS/SSL key, certificate and certificate chain files are
+    replaced with the following deployment-specific values.
+
+    ```
+    SSLCertificateFile   /etc/pki/tls/certs/{{ DJANGO_PROJECT_NAME }}.crt
+    SSLCertificateKeyFile   /etc/pki/tls/private/{{ DJANGO_PROJECT_NAME }}.key
+    SSLCertificateChainFile   /etc/pki/tls/certs/{{ DJANGO_PROJECT_NAME }}.ca-bundle
+    ```
+
+  - Security improvements.
+
+    * Disabled SSLv2 and SSLv3 by replacing the `SSLProtocol` and
+      `SSLProxyProtocol` lines in `/etc/httpd/conf.d/ssl.conf` with the
+      following:
+
+      ```
+      SSLProtocol -SSLv2 -SSLv3 +TLSv1 +TLSv1.1 +TLSv1.2
+      SSLProxyProtocol -SSLv2 -SSLv3 +TLSv1 +TLSv1.1 +TLSv1.2
+      ```
+
+    * Remove RC4 cipher support and add missing support for forward
+      secrecy by making the following modifications to
+      `/etc/httpd/conf.d/ssl.conf`.
+
+    * Set `SSLHonorCipherOrder` as follows:
+
+      ```
+      SSLHonorCipherOrder on
+      ```
+
+    * Replace replacing the `SSLCipherSuite` and `SSLProxyCipherSuite` lines
+      with the following:
+
+      ```
+      SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+      SSLProxyCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+      ```
