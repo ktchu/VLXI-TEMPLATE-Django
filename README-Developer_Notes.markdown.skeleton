@@ -1,0 +1,171 @@
+{{ DJANGO_PROJECT_NAME }} - Developer Notes
+===========================================
+
+------------------------------------------------------------------------------
+
+Contents
+--------
+
+1. [Apps][#1]
+
+2. [Development Installation][#2]
+
+3. [Additional Notes][#3]
+
+------------------------------------------------------------------------------
+
+## 1. Apps
+
+This project consists of a collection of Django apps corresponding to the
+subdirectories under the `apps` directory:
+
+    apps
+    |-- accounts
+    |-- api
+
+* `accounts` manages user and roles
+
+* `api` defines data models and REST APIs for the Django project
+
+### accounts
+
+Custom user and group models
+
+* `EmailUser`
+
+  - `username` field replaced by `email` field
+
+  - `roles` field relates `EmailUser` to `accounts.Roles`
+
+* `Role`
+
+  - Custom data model that provides support for role-level permissions
+    (in contrast to model - and object-level permissions implemented using
+     Django's Guardian application).
+
+------------------------------------------------------------------------------
+
+## 2. Development Installation
+
+### Get Source Code
+
+* Clone source code repository.
+
+    ```bash
+    $ git clone {{ GIT_REPO_URL }}
+    ```
+
+### Prepare Development Environment
+
+* Install and configure prerequisites.
+
+    * _Python Packages_
+        * `virtualenv`
+        * `virtualenvwrapper`
+        * `autoenv`
+
+
+* Create a virtualenv for the project.
+
+    ```bash
+    $ mkvirtualenv -p /PATH/TO/PYTHON3 {{ VIRTUALENV_NAME }}
+    ```
+
+* Set up the project directory
+
+    * Create `.env` file (project-level `autoenv` configuration) for project.
+
+        ```bash
+        # --- Activate virtual Python environment
+
+        TARGET_VIRTUALENV={{ VIRTUALENV_NAME }}
+        virtualenvwrapper_verify_active_environment 2> /dev/null
+        if [ $? -ne 0 ]; then
+            workon $TARGET_VIRTUALENV
+        else
+            if [ `basename $VIRTUAL_ENV` != "$TARGET_VIRTUALENV" ]; then
+                workon $TARGET_VIRTUALENV
+            fi
+        fi
+
+        # --- Configure environment
+
+        # Find top-level directory
+        TOP_DIR=`dirname "${BASH_SOURCE[0]}"`
+
+        # Set PATH
+        if [[ "$PATH" != *$TOP_DIR* ]]; then
+            export PATH=$TOP_DIR:$PATH
+        fi
+        if [[ "$PATH" != *$TOP_DIR/bin* ]]; then
+            export PATH=$TOP_DIR/bin:$PATH
+        fi
+        if [[ "$PATH" != *$TOP_DIR/node_modules/.bin* ]]; then
+            export PATH=$TOP_DIR/node_modules/.bin:$PATH
+        fi
+
+        # Set PYTHONPATH
+        unset PYTHONPATH
+        export PYTHONPATH="$TOP_DIR/apps"
+
+        # --- Clean up
+
+        unset TARGET_VIRTUALENV
+        ```
+
+    * Install developer Python packages.
+
+        ```bash
+        # From top-level project directory
+        $ pip install -r requirements-dev.txt
+        ```
+
+### Initialize Django Project
+
+* Initialize database and superusers
+
+  * From settings-SAMPLE.py, create and edit configuration in
+    `settings.py` file.
+
+  * Apply database migrations.
+
+    ```bash
+    # From top-level project directory
+    $ python manage.py migrate
+    ```
+
+  * Create superusers.
+
+    ```bash
+    # From top-level project directory
+    $ python manage.py createsuperuser
+    ```
+
+------------------------------------------------------------------------------
+
+## 3. Additional Notes
+
+### Managing Static File Directories
+
+* In `settings.py`, only the static directory in the top-level project
+  directory should be added to the `STATICFILES_DIRS` variable.
+
+* To make app-level static directories available, create symbolic links
+  from the the top-level static directory to app-level static directories.
+
+### Adding Package Requirements
+
+* Package requirements should be added to the appropriate section of
+  `setup.py` (e.g., `INSTALL_REQUIREMENTS`, `TESTING_REQUIREMENTS`, or
+  `DEV_REQUIREMENTS`).
+
+------------------------------------------------------------------------------
+
+
+[-----------------------------INTERNAL LINKS-----------------------------]: #
+
+[#1]: #1-apps
+
+[#2]: #2-development-installation
+
+[#3]: #3-additional-notes
