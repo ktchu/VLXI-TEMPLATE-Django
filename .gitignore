@@ -17,5 +17,8 @@ dev-ops/*.conf
 .coverage.*
 .pytest_cache
 
+# autoenv files
+.env
+
 # macOS files
 .DS_Store*
