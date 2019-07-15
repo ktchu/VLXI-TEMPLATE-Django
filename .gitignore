@@ -8,8 +8,14 @@ dist/*
 # compiled source
 *.pyc
 
+# DevOps files
+dev-ops/*.conf
+
 # testing files
 .cache
 .coverage
 .coverage.*
 .pytest_cache
+
+# macOS files
+.DS_Store*
