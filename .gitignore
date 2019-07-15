@@ -3,6 +3,7 @@
 
 # setuptools files
 dist/*
+.eggs/*
 *.egg-info
 
 # compiled source
