@@ -10,7 +10,7 @@ doctest_optionflags = NORMALIZE_WHITESPACE
 codestyle_ignore = */migrations/* ALL
 
 # pytest-django configuration
-DJANGO_SETTINGS_MODULE = screenconnex.settings
+DJANGO_SETTINGS_MODULE = {{ DJANGO_PROJECT_NAME }}.settings
 
 # Ignore templatetags directories
 norecursedirs = */templatetags

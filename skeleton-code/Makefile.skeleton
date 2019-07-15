@@ -1,7 +1,7 @@
 # --- User Parameters
 
 # Django directory
-DJANGO_PROJECT_NAME=screenconnex
+DJANGO_PROJECT_NAME={{ DJANGO_PROJECT_NAME }}
 DJANGO_APPS=api accounts
 
 # Testing parameters
