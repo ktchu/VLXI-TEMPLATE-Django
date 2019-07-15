@@ -40,6 +40,13 @@ of Django projects. When appropriate, they should be renamed (with the
 
 ## 2. Usage
 
+* (OPTIONAL) Configure `autoenv`.
+
+  - Edit `skeleton-code/env.skeleton` to reflect system configuration.
+
+  - Rename `skeleton-code/env.skeleton` to `.env` and move it to top-level
+    project directory.
+
 * Edit 'skeleton' files to reflect project details and rename them without
   the 'skeleton' suffix.
 
