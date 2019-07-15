@@ -9,14 +9,22 @@ dist/*
 # compiled source
 *.pyc
 
-# DevOps files
-dev-ops/*.conf
+# Auto-generated files
+docs/er-diagrams
 
 # testing files
 .cache
 .coverage
 .coverage.*
 .pytest_cache
+
+# Deployment files
+settings.py
+deploy.conf
+dev-ops/conf
+
+# Django files
+*.sqlite3
 
 # autoenv files
 .env
