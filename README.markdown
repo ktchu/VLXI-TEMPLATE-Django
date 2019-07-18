@@ -42,9 +42,10 @@ of Django projects. When appropriate, they should be renamed (with the
 
 * (OPTIONAL) Configure `autoenv`.
 
-  - Edit `skeleton-code/env.skeleton` to reflect system configuration.
+  - Edit `example-code/env.example` to reflect the configuration of your
+    system.
 
-  - Rename `skeleton-code/env.skeleton` to `.env` and move it to top-level
+  - Rename `example-code/env.example` to `.env` and move it to top-level
     project directory.
 
 * Edit 'skeleton' files to reflect project details and rename them without
@@ -52,7 +53,7 @@ of Django projects. When appropriate, they should be renamed (with the
 
 * Create Django project using `django-admin` utility.
 
-* Create Django applications. Use the code in `skeleton-code/app.skeleton`,
+* Create Django applications. Use the code in `example-code/app.example`,
   as appropriate, as templates for Django app components (e.g., unit tests).
 
 ------------------------------------------------------------------------------

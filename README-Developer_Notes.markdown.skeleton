@@ -74,7 +74,7 @@ Custom user and group models
 * Set up the project directory
 
     * Create `.env` file (project-level `autoenv` configuration) for project
-      by editing `skeleton-code/env.skeleton` to reflect the system
+      by editing `example-code/env.example` to reflect the system
       configuration and moving it to the top-level project directory.
 
     * Install developer Python packages.
