@@ -7,10 +7,10 @@ doctest_optionflags = NORMALIZE_WHITESPACE
                       ALLOW_BYTES
 
 # Ignore Django database migrations
-codestyle_ignore = */migrations/* ALL
+codestyle_exclude = migrations/*
 
 # pytest-django configuration
 DJANGO_SETTINGS_MODULE = {{ DJANGO_PROJECT_NAME }}.settings
 
 # Ignore templatetags directories
-norecursedirs = */templatetags
+norecursedirs = templatetags
