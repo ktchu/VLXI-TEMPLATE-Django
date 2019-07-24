@@ -1,16 +1,25 @@
-# temporary files
-.*.swp
+# --- Project files
+
+# Deployment files
+settings.py
+deploy.conf
+dev-ops/conf
+
+# Auto-generated files
+docs/er-diagrams
+
+# Django files
+*.sqlite3
+
+# --- Python files
+
+# compiled source
+*.pyc
 
 # setuptools files
 dist/*
 .eggs/*
 *.egg-info
-
-# compiled source
-*.pyc
-
-# Auto-generated files
-docs/er-diagrams
 
 # testing files
 .cache
@@ -18,16 +27,13 @@ docs/er-diagrams
 .coverage.*
 .pytest_cache
 
-# Deployment files
-settings.py
-deploy.conf
-dev-ops/conf
-
-# Django files
-*.sqlite3
+# --- Miscellaneous
 
 # autoenv files
 .env
+
+# vim files
+.*.swp
 
 # macOS files
 .DS_Store*
