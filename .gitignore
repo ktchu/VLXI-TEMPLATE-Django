@@ -1,14 +1,14 @@
 # --- Project files
 
-# Deployment files
+# Deployment
 settings.py
 deploy.conf
 dev-ops/conf
 
-# Auto-generated files
+# Documentation
 docs/er-diagrams
 
-# Django files
+# Django
 *.sqlite3
 
 # --- Python files
@@ -16,12 +16,12 @@ docs/er-diagrams
 # compiled source
 *.pyc
 
-# setuptools files
+# setuptools
 dist/*
 .eggs/*
 *.egg-info
 
-# testing files
+# testing
 .cache
 .coverage
 .coverage.*
@@ -29,11 +29,11 @@ dist/*
 
 # --- Miscellaneous
 
-# autoenv files
+# autoenv
 .env
 
-# vim files
+# vim
 .*.swp
 
-# macOS files
+# macOS
 .DS_Store*
