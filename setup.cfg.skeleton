@@ -1,16 +1,20 @@
-[pytest]
+[aliases]
+test=pytest
+
+[tool:pytest]
 python_files = test_*.py tests.py
-addopts = --doctest-modules --codestyle --cov-report term-missing
+addopts = --doctest-modules --pycodestyle --cov-report term-missing
 doctest_optionflags = NORMALIZE_WHITESPACE
                       IGNORE_EXCEPTION_DETAIL
                       ALLOW_UNICODE
                       ALLOW_BYTES
 
-# Ignore Django database migrations
-codestyle_exclude = migrations/*
+# Ignored directories
+norecursedirs = templatetags
 
 # pytest-django configuration
 DJANGO_SETTINGS_MODULE = {{ DJANGO_PROJECT_NAME }}.settings
 
-# Ignore templatetags directories
-norecursedirs = templatetags
+[pycodestyle]
+# Ignore Django database migrations
+exclude = */migrations/*
