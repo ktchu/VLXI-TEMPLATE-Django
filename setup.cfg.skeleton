@@ -21,6 +21,10 @@ exclude = */migrations/*
 
 [coverage:report]
 omit =
-    {{ DJANGO_PROJECT_NAME }}/*
     */migrations/*
     */tests/*
+    {{ DJANGO_PROJECT_NAME }}/__init__.py
+    {{ DJANGO_PROJECT_NAME }}/asgi.py
+    {{ DJANGO_PROJECT_NAME }}/settings*.py
+    {{ DJANGO_PROJECT_NAME }}/urls.py
+    {{ DJANGO_PROJECT_NAME }}/wsgi.py
