@@ -63,12 +63,11 @@ erd:
 	if [ -d ${ER_DIAGRAM_DIR} ]; then rm -rf ${ER_DIAGRAM_DIR}; fi
 	mkdir -p ${ER_DIAGRAM_DIR}
 	python manage.py graph_models ${DJANGO_APPS} \
-		--disable-sort-fields --no-inheritance \
-		-g -o ${ER_DIAGRAM_DIR}/${DJANGO_PROJECT_NAME}-full.png;
+		--disable-sort-fields -g -o \
+		${ER_DIAGRAM_DIR}/${DJANGO_PROJECT_NAME}-full.png;
 	for APP in ${DJANGO_APPS}; do \
-		python manage.py graph_models $$APP -S \
-			--disable-sort-fields --no-inheritance \
-			-g -o ${ER_DIAGRAM_DIR}/$$APP.png; \
+		python manage.py graph_models $$APP -S --disable-sort-fields -g -o \
+			${ER_DIAGRAM_DIR}/$$APP.png; \
 	done
 
 # Maintenance
