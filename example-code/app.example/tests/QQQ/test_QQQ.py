@@ -65,7 +65,7 @@ class test_QQQ(TestCase):
         Clean up after each test.
         """
 
-    # --- Tests
+    # --- Data model tests
 
     def test_BREAD(self):  # pylint: disable=invalid-name
         """
