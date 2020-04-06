@@ -18,6 +18,9 @@ PYTEST_PYLINT_OPTIONS=
 DOC_DIR=docs
 ER_DIAGRAM_DIR=${DOC_DIR}/er-diagrams
 
+# Code directories
+CODE_DIRS=${DJANGO_PROJECT_NAME} ${DJANGO_APPS}
+
 # --- Targets
 
 # Default target
