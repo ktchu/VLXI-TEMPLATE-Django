@@ -18,3 +18,9 @@ DJANGO_SETTINGS_MODULE = {{ DJANGO_PROJECT_NAME }}.settings
 [pycodestyle]
 # Ignore Django database migrations
 exclude = */migrations/*
+
+[coverage:report]
+omit =
+    {{ DJANGO_PROJECT_NAME }}/*
+    */migrations/*
+    */tests/*
