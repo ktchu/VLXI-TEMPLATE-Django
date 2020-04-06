@@ -9,6 +9,9 @@ NPROCS=auto
 
 # --- Internal Parameters
 
+# Code directories
+CODE_DIRS=${DJANGO_PROJECT_NAME} ${DJANGO_APPS}
+
 # Testing parameters
 PYTEST_SEARCH_PATHS=${DJANGO_PROJECT_NAME} apps
 PYTEST_OPTIONS=-n ${NPROCS} --cov=${DJANGO_PROJECT_NAME} --cov=apps
@@ -17,9 +20,6 @@ PYTEST_PYLINT_OPTIONS=
 # Documentation
 DOC_DIR=docs
 ER_DIAGRAM_DIR=${DOC_DIR}/er-diagrams
-
-# Code directories
-CODE_DIRS=${DJANGO_PROJECT_NAME} ${DJANGO_APPS}
 
 # --- Targets
 
