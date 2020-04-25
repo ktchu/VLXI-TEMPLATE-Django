@@ -121,7 +121,7 @@ class test_QQQ(TestCase):
             QQQ.objects.get(pk=pk)
         assert 'QQQ matching query does not exist' in str(exception_info)
 
-    def test_add_optional_fields(self):
+    def test_add_with_optional_fields(self):
         """
         Test 'add' operation with optional fields included.
         """
