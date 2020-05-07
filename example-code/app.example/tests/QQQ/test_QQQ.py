@@ -148,6 +148,10 @@ class test_QQQ(TestCase):
         * When CharField values are set to None, they are stored in the
           database as an empty string. As a result, no error is raised
           when CharField values are not set when creating a new model object.
+
+          To make it possible to enforce that a CharField is required, use a
+          custom save() method that raises a ValidationError when the
+          CharField value is not set.
         """
         # --- Exercise functionality and check results
 
@@ -186,8 +190,10 @@ class test_QQQ(TestCase):
         * To test field validation, do _not_ use `Model.objects.create()` to
           create the object because some fields get modified during the
           process and the validation error may not be caught. Create an object
-          directly and use ```full_clean()``` method to check for invalid
-          fields.
+          directly and use `full_clean()` method to check for invalid fields.
+
+        * For CharFields, `full_clean()` raises a ValidationError unless the
+          field is defined with `blank=True`.
         """
         # --- 'field_1'
 
