@@ -25,7 +25,7 @@ from django.db import transaction
 from django.test import TestCase
 
 # Local packages
-from ..utils import verify_obj
+from ..unittest_utils import verify_obj
 
 
 # --- Test Suite

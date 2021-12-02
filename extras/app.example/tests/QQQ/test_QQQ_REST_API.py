@@ -24,7 +24,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 # Local packages
-from ..utils import verify_obj
+from ..unittest_utils import verify_obj
 from ..utils import verify_REST_API_item_response
 
 
